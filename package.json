@@ -1,0 +1,36 @@
+{
+  "name": "seo-agent",
+  "version": "1.4.0",
+  "description": "AI SEO Analysis Agent (evidence-first SEO workspace)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test:professional": "node test/professional_audit_test.js",
+    "test:agent": "node test/phase_agent_test.js",
+    "start:python": "cd seo-engine && python -m uvicorn main:app --host 0.0.0.0 --port 8000",
+    "start:all": "node server.js",
+    "db:migrate": "psql \"$DATABASE_URL\" -f db/schema.sql",
+    "db:migrate:activity": "node scripts/migrate-activity.js",
+    "db:migrate:json": "node scripts/migrate-json-to-postgres.js",
+    "test": "node test/logic_test.js && node test/professional_audit_test.js && node test/phase_agent_test.js && node test/growth_os_static_test.js && node test/detailed_results_test.js && node test/automation_hardening_test.js && node test/security_hardening_test.js && node test/luxe_ui_static_test.js && node test/premium_plus_static_test.js",
+    "db:make-admin": "node scripts/set-admin.js",
+    "db:admin-info": "node scripts/admin-info.js",
+    "db:reset-admin": "node scripts/reset-admin.js",
+    "test:growth": "node test/growth_os_static_test.js",
+    "test:security": "node test/security_hardening_test.js && node test/luxe_ui_static_test.js",
+    "test:python": "cd seo-engine && python -m pytest tests -q",
+    "setup:python": "cd seo-engine && python -m pip install -r requirements.txt",
+    "test:premium": "node test/premium_plus_static_test.js"
+  },
+  "dependencies": {
+    "@google/genai": "^2.19.0",
+    "compression": "^1.8.1",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "google-trends-api": "^4.9.2",
+    "pg": "^8.23.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

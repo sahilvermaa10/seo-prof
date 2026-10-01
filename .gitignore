@@ -1,0 +1,18 @@
+# secrets — NEVER commit
+.env
+.env.*
+!.env.example
+
+# dependencies / build output
+node_modules/
+seo-engine/venv/
+seo-engine/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# runtime / OS
+*.log
+data/*.json
+.DS_Store
+Thumbs.db

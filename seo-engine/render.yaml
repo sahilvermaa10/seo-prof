@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: seo-agent-python-engine
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: SERPAPI_KEY
+        sync: false
+      - key: PAGESPEED_API_KEY
+        sync: false
+      - key: OPENPR_API_KEY
+        sync: false
+      # Set the SAME value on the Node service so only your app can call this engine.
+      - key: ENGINE_SHARED_SECRET
+        generateValue: true

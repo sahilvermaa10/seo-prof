@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>SEO Zypp — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#eef1f6; --dim:#93a0b4; --faint:#5c6b83;
+    --panel:#12182a; --panel-2:#0d1220; --line:#232c42; --bg:#080b14;
+    --gold:#e0a94a; --gold-dim:#8a6c33;
+    --ok:#4fae7a; --warn:#e0a94a; --bad:#d9685f;
+    --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+    --sans:'IBM Plex Sans',-apple-system,'Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:radial-gradient(1100px 500px at 15% -10%, rgba(224,169,74,0.06), transparent 60%), var(--bg); color:var(--ink); font-family:var(--sans); min-height:100vh;}
+  button{font-family:var(--sans);}
+  code{font-family:var(--mono);}
+
+  /* ---------- Login ---------- */
+  #loginScreen{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;}
+  .ledger{width:100%; max-width:380px; background:var(--panel); border:1px solid var(--line); border-radius:4px; padding:36px 32px 30px; position:relative;}
+  .ledger::before{content:""; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--gold), transparent 70%);}
+  .mark{font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--gold); margin:0 0 4px;}
+  .ledger h1{font-size:22px; font-weight:600; margin:0 0 6px; letter-spacing:-0.01em;}
+  .ledger p.sub{color:var(--dim); font-size:13.5px; line-height:1.5; margin:0 0 26px;}
+  label{display:block; font-size:12px; color:var(--dim); margin:0 0 6px; font-family:var(--mono);}
+  .field{margin-bottom:16px;}
+  input[type=text],input[type=password]{width:100%; background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:11px 12px; border-radius:3px; font-size:14.5px; font-family:var(--sans); outline:none; transition:border-color .15s ease;}
+  input[type=text]:focus,input[type=password]:focus{border-color:var(--gold-dim);}
+  .signin-btn{width:100%; margin-top:8px; background:var(--gold); color:#1b1305; border:none; padding:12px; border-radius:3px; font-size:14.5px; font-weight:600; cursor:pointer; letter-spacing:.01em;}
+  .signin-btn:disabled{opacity:.55; cursor:default;}
+  .signin-btn:hover:not(:disabled){filter:brightness(1.06);}
+  .err{margin-top:14px; background:rgba(217,104,95,0.1); border:1px solid rgba(217,104,95,0.35); color:#f1a49d; font-size:13px; padding:9px 11px; border-radius:3px; display:none; line-height:1.45;}
+  .foot-note{margin-top:22px; font-size:11.5px; color:var(--faint); line-height:1.5; border-top:1px solid var(--line); padding-top:16px;}
+
+  /* ---------- App shell ---------- */
+  #app{display:none; min-height:100vh;}
+  .shell{display:flex; min-height:100vh;}
+
+  .sidebar{width:220px; flex:0 0 220px; background:var(--panel); border-right:1px solid var(--line); padding:20px 0; display:flex; flex-direction:column;}
+  .brand{padding:0 20px 20px; border-bottom:1px solid var(--line); margin-bottom:14px;}
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px rgba(224,169,74,0.15); display:inline-block; margin-right:8px;}
+  .brand b{font-size:14.5px; font-weight:600;}
+  .brand .tag{display:block; margin-top:4px; font-family:var(--mono); font-size:10.5px; color:var(--dim);}
+  .nav-item{display:flex; align-items:center; gap:10px; padding:10px 20px; font-size:13.5px; color:var(--dim); cursor:pointer; border-left:2px solid transparent; user-select:none;}
+  .nav-item .mk{font-family:var(--mono); font-size:11px; color:var(--faint); width:16px;}
+  .nav-item:hover{color:var(--ink); background:rgba(255,255,255,0.02);}
+  .nav-item.active{color:var(--ink); border-left-color:var(--gold); background:rgba(224,169,74,0.06);}
+  .nav-item.active .mk{color:var(--gold);}
+  .sidebar-foot{margin-top:auto; padding:16px 20px 0; border-top:1px solid var(--line); font-size:11px; color:var(--faint); line-height:1.5;}
+
+  .main-col{flex:1; min-width:0; display:flex; flex-direction:column;}
+  header.topbar{border-bottom:1px solid var(--line); padding:16px 28px; display:flex; align-items:center; justify-content:space-between; background:var(--panel);}
+  .topbar h2{font-size:15px; margin:0; font-weight:600; letter-spacing:-.01em;}
+  .topbar .tag{font-family:var(--mono); font-size:11px; color:var(--dim); margin-left:10px;}
+  .bar-right{display:flex; align-items:center; gap:14px; font-size:13px; color:var(--dim);}
+  .bar-right b{color:var(--ink); font-weight:600;}
+  .ghost-btn{background:transparent; border:1px solid var(--line); color:var(--dim); font-size:12.5px; padding:7px 13px; border-radius:3px; cursor:pointer;}
+  .ghost-btn:hover{border-color:var(--gold-dim); color:var(--ink);}
+  .ghost-btn.danger:hover{border-color:var(--bad); color:var(--bad);}
+  .ghost-btn.small{padding:4px 9px; font-size:11.5px;}
+
+  main{flex:1; padding:26px 28px 60px; max-width:1240px; width:100%; margin:0 auto;}
+  .section{display:none;}
+  .section.active{display:block;}
+  .section-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:10px;}
+  .section-head h3{font-size:13px; color:var(--dim); font-weight:500; margin:0; font-family:var(--mono); text-transform:none;}
+  .section-head h3 b{color:var(--ink);}
+  .head-controls{display:flex; gap:8px; align-items:center;}
+  select, .search-input{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:7px 10px; border-radius:3px; font-size:12.5px; font-family:var(--sans); outline:none;}
+  .search-input:focus, select:focus{border-color:var(--gold-dim);}
+
+  .stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:5px; overflow:hidden; margin-bottom:26px;}
+  .stat{background:var(--panel); padding:20px 20px 18px;}
+  .stat .num{font-family:var(--mono); font-size:30px; font-weight:600; line-height:1; color:var(--ink);}
+  .stat .lbl{margin-top:8px; font-size:12.5px; color:var(--dim);}
+  .stat .sub{margin-top:10px; font-size:11.5px; color:var(--faint); font-family:var(--mono);}
+  .stat .sub em{color:var(--ok); font-style:normal;} .stat .sub i{color:var(--bad); font-style:normal;}
+
+  .panels{display:grid; grid-template-columns:1.3fr 1fr; gap:20px; align-items:start;}
+  @media (max-width:980px){.panels{grid-template-columns:1fr;} .stat-grid{grid-template-columns:repeat(2,1fr);} .sidebar{width:60px; flex-basis:60px;} .sidebar .nav-item span.label, .brand b, .brand .tag, .sidebar-foot{display:none;}}
+
+  .panel{background:var(--panel); border:1px solid var(--line); border-radius:5px; overflow:hidden;}
+  .panel .ph{padding:14px 18px; border-bottom:1px solid var(--line); font-size:12.5px; font-family:var(--mono); color:var(--dim); display:flex; justify-content:space-between; align-items:center;}
+  table{width:100%; border-collapse:collapse;}
+  th{text-align:left; font-size:10.5px; color:var(--faint); font-family:var(--mono); font-weight:500; padding:10px 18px; border-bottom:1px solid var(--line); white-space:nowrap;}
+  td{padding:11px 18px; font-size:13px; border-bottom:1px solid var(--line); color:var(--ink); vertical-align:middle;}
+  tr:last-child td{border-bottom:none;}
+  td.dim{color:var(--dim); font-size:12px;}
+  .role-pill,.status-pill{font-family:var(--mono); font-size:10.5px; padding:2px 7px; border-radius:3px; white-space:nowrap;}
+  .role-admin{background:rgba(224,169,74,0.14); color:var(--gold);}
+  .role-user{background:rgba(147,160,180,0.12); color:var(--dim);}
+  .status-completed{background:rgba(79,174,122,0.14); color:var(--ok);}
+  .status-running{background:rgba(224,169,74,0.14); color:var(--gold);}
+  .status-failed{background:rgba(217,104,95,0.14); color:var(--bad);}
+  .badge-on{color:var(--ok);} .badge-off{color:var(--faint);}
+  .empty-row td{color:var(--faint); font-size:12.5px; padding:26px 18px; text-align:center;}
+  .row-actions{display:flex; gap:6px; flex-wrap:wrap;}
+  .load-more{display:flex; justify-content:center; padding:14px; border-top:1px solid var(--line);}
+
+  .loading-strip{padding:60px 0; text-align:center; color:var(--dim); font-family:var(--mono); font-size:13px;}
+  .activity-feed{list-style:none; margin:0; padding:0;}
+  .activity-feed li{padding:12px 18px; border-bottom:1px solid var(--line); font-size:13px; display:flex; gap:10px;}
+  .activity-feed li:last-child{border-bottom:none;}
+  .activity-feed .tp{font-family:var(--mono); font-size:10px; padding:2px 6px; border-radius:3px; height:fit-content; white-space:nowrap; text-transform:uppercase; letter-spacing:.03em;}
+  .tp-signup{background:rgba(79,174,122,0.14); color:var(--ok);}
+  .tp-audit{background:rgba(224,169,74,0.14); color:var(--gold);}
+  .tp-rank{background:rgba(122,148,224,0.14); color:#7a94e0;}
+  .tp-monitor{background:rgba(224,169,74,0.1); color:var(--gold-dim);}
+  .tp-alert{background:rgba(217,104,95,0.14); color:var(--bad);}
+  .tp-login{background:rgba(147,160,180,0.12); color:var(--dim);}
+  .activity-feed .tx{color:var(--dim); flex:1;}
+  .activity-feed .ti{color:var(--faint); font-family:var(--mono); font-size:11px; white-space:nowrap;}
+
+  .bars{padding:18px;}
+  .bar-row{display:flex; align-items:center; gap:10px; margin-bottom:8px; font-size:12px;}
+  .bar-row .bl{width:64px; color:var(--faint); font-family:var(--mono); flex:0 0 64px;}
+  .bar-row .bt{flex:1; background:var(--panel-2); border-radius:2px; overflow:hidden; height:16px;}
+  .bar-row .bf{height:100%; background:var(--gold); opacity:.8;}
+  .bar-row .bn{width:28px; text-align:right; font-family:var(--mono); color:var(--dim);}
+
+  .modal-overlay{display:none; position:fixed; inset:0; background:rgba(4,6,12,0.7); z-index:50; align-items:center; justify-content:center; padding:24px;}
+  .modal-overlay.active{display:flex;}
+  .modal{background:var(--panel); border:1px solid var(--line); border-radius:5px; width:100%; max-width:640px; max-height:80vh; display:flex; flex-direction:column;}
+  .modal-head{padding:14px 18px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; font-size:13px; font-family:var(--mono); color:var(--dim);}
+  .modal-body{padding:16px 18px; overflow:auto; font-size:12.5px;}
+  .modal-body pre{white-space:pre-wrap; word-break:break-word; font-family:var(--mono); font-size:11.5px; color:var(--dim); margin:0;}
+  .modal-close{cursor:pointer; color:var(--dim); background:none; border:none; font-size:16px;}
+  .toast{position:fixed; bottom:20px; right:20px; background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--gold); padding:12px 16px; border-radius:3px; font-size:13px; z-index:60; display:none; max-width:340px;}
+  .toast.err{border-left-color:var(--bad);}
+
+  /* ---------- Live dashboard enhancements ---------- */
+  .live-chip{display:inline-flex;align-items:center;gap:7px;padding:5px 9px;border:1px solid var(--line);border-radius:999px;font-family:var(--mono);font-size:10.5px;color:var(--dim);background:var(--panel-2);}
+  .live-dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px rgba(79,174,122,.12);}
+  .live-dot.busy{background:var(--gold);box-shadow:0 0 0 3px rgba(224,169,74,.12);}
+  .live-dot.bad{background:var(--bad);box-shadow:0 0 0 3px rgba(217,104,95,.12);}
+  .refreshing{opacity:.72;pointer-events:none;}
+  .stat{transition:transform .16s ease,border-color .16s ease,background .16s ease;}
+  .stat:hover{transform:translateY(-2px);background:var(--panel-2);}
+  .panel{box-shadow:0 8px 28px rgba(0,0,0,.08);}
+  .table-wrap{overflow:auto;}
+  @media(max-width:720px){
+    header.topbar{padding:12px 16px;}
+    header.topbar .bar-right{gap:7px;}
+    header.topbar .bar-right>span{display:none;}
+    main{padding:18px 14px 40px;}
+    .sidebar{width:62px;flex-basis:62px;}
+    .sidebar .nav-item{justify-content:center;padding:12px 6px;}
+    .sidebar .nav-item .label,.sidebar .brand b,.sidebar .brand .tag,.sidebar .sidebar-foot{display:none;}
+    .sidebar .brand{padding:0 0 20px;text-align:center;}
+    .sidebar .dot{margin:0;}
+  }
+
+
+  /* Premium live-ops dashboard */
+  .stat{position:relative;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;background:linear-gradient(145deg,rgba(22,29,49,.98),rgba(12,17,31,.98));}
+  .stat::after{content:"";position:absolute;inset:auto -25% -55% auto;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(224,169,74,.16),transparent 68%);pointer-events:none;}
+  .stat:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(0,0,0,.25);border-color:rgba(224,169,74,.35);}
+  .live-hero{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;margin-bottom:20px;}
+  .hero-card{background:linear-gradient(135deg,#151d34,#0b1020);border:1px solid #28334c;border-radius:12px;padding:20px;position:relative;overflow:hidden;box-shadow:0 14px 45px rgba(0,0,0,.2);}
+  .hero-card::before{content:"";position:absolute;width:300px;height:300px;right:-130px;top:-150px;background:radial-gradient(circle,rgba(79,174,122,.17),transparent 68%);}
+  .hero-title{font-size:22px;font-weight:700;margin-bottom:6px;position:relative;}.hero-sub{color:var(--dim);font-size:12.5px;position:relative;}
+  .live-metric{font-family:var(--mono);font-size:38px;font-weight:700;margin-top:20px;}.live-metric small{font-size:12px;color:var(--dim);font-weight:400;margin-left:7px;}
+  .cursor-map{height:120px;position:relative;margin-top:14px;border:1px solid #253049;border-radius:9px;background:radial-gradient(circle at 20% 25%,rgba(224,169,74,.09),transparent 28%),#090e1b;overflow:hidden;}
+  .cursor-dot{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(224,169,74,.13),0 0 22px rgba(224,169,74,.55);transform:translate(-50%,-50%);transition:left .25s ease,top .25s ease;}
+  .pulse{animation:pulseLive 1.8s infinite;} @keyframes pulseLive{0%,100%{box-shadow:0 0 0 0 rgba(79,174,122,.25)}50%{box-shadow:0 0 0 9px rgba(79,174,122,0)}}
+  .live-table tr{transition:background .15s ease}.live-table tbody tr:hover{background:rgba(224,169,74,.05)}
+  .online-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(79,174,122,.1);margin-right:7px}.idle-dot{background:var(--warn);}
+  .mini{font-size:10px;color:var(--faint);font-family:var(--mono);}.activity-detail{font-size:11.5px;color:var(--dim);line-height:1.45}.event-icon{width:28px;height:28px;border:1px solid var(--line);border-radius:8px;display:grid;place-items:center;font-size:12px;background:var(--panel-2);flex:0 0 28px;}
+  .metric-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px}.metric-box{padding:13px 15px;border:1px solid var(--line);border-radius:9px;background:rgba(18,24,42,.82);}.metric-box b{display:block;font-family:var(--mono);font-size:20px;margin-bottom:4px}.metric-box span{font-size:10.5px;color:var(--dim);}
+  @media(max-width:900px){.live-hero{grid-template-columns:1fr}.metric-strip{grid-template-columns:repeat(2,1fr)}}
+</style>
+<link href="/admin-premium.css?v=1" rel="stylesheet">
+<script defer src="/admin-premium.js?v=1"></script>
+</head>
+<body>
+
+<!-- ===================== LOGIN ===================== -->
+<div id="loginScreen">
+  <div class="ledger">
+    <p class="mark">SEO ZYPP // ADMIN</p>
+    <h1>Admin sign in</h1>
+    <p class="sub">Evidence-first operator access. This area exposes account, project and audit data from the live database — not the customer workspace.</p>
+    <form id="loginForm">
+      <div class="field"><label for="identifier">EMAIL OR USERNAME</label><input type="text" id="identifier" autocomplete="username" required></div>
+      <div class="field"><label for="password">PASSWORD</label><input type="password" id="password" autocomplete="current-password" required></div>
+      <button class="signin-btn" type="submit" id="loginBtn">Sign in</button>
+      <div class="err" id="loginErr"></div>
+    </form>
+    <div class="foot-note">Access is limited to accounts with the <b style="color:var(--dim)">admin</b> role. Grant it with <code>npm run db:make-admin -- user@example.com</code>. Every sign-in and management action here is written to the admin audit log.</div>
+  </div>
+</div>
+
+<!-- ===================== APP ===================== -->
+<div id="app">
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="dot"></span><b>SEO Zypp Admin</b><span class="tag">live database</span></div>
+      <div class="nav-item active" data-section="overview"><span class="mk">01</span><span class="label">Overview</span></div>
+      <div class="nav-item" data-section="users"><span class="mk">02</span><span class="label">Users</span></div>
+      <div class="nav-item" data-section="projects"><span class="mk">03</span><span class="label">Projects</span></div>
+      <div class="nav-item" data-section="audits"><span class="mk">04</span><span class="label">Audit Runs</span></div>
+      <div class="nav-item" data-section="monitoring"><span class="mk">05</span><span class="label">Monitoring &amp; Alerts</span></div>
+      <div class="nav-item" data-section="activity"><span class="mk">06</span><span class="label">Activity Feed</span></div>
+      <div class="nav-item" data-section="performance"><span class="mk">07</span><span class="label">Agent Performance</span></div>
+      <div class="nav-item" data-section="auditlog"><span class="mk">08</span><span class="label">Admin Audit Log</span></div>
+      <div class="nav-item" data-section="live"><span class="mk">09</span><span class="label">Live Users</span></div>
+      <div class="nav-item" data-section="sessions"><span class="mk">10</span><span class="label">Sessions & Activity</span></div>
+      <div class="nav-item" data-section="apiusage"><span class="mk">11</span><span class="label">API Usage</span></div>
+      <div class="nav-item" data-section="logins"><span class="mk">12</span><span class="label">Login History</span></div>
+      <div class="sidebar-foot">Signed in as <span id="sideWho" style="color:var(--dim)">—</span></div>
+    </aside>
+
+    <div class="main-col">
+      <header class="topbar">
+        <div><h2 id="pageTitle" style="display:inline;">Overview</h2><span class="tag" id="pageTag">/ live counts</span></div>
+        <div class="bar-right">
+          <span>Signed in as <b id="whoami">—</b></span>
+          <span class="live-chip" title="Dashboard automatically refreshes"><span class="live-dot" id="liveDot"></span><span id="liveText">LIVE</span></span>
+          <button class="ghost-btn" id="refreshBtn">Refresh</button>
+          <button class="ghost-btn danger" id="logoutBtn">Sign out</button>
+        </div>
+      </header>
+      <main>
+
+        <!-- OVERVIEW -->
+        <section class="section active" id="sec-overview">
+          <div id="ov-loading" class="loading-strip">Reading database…</div>
+          <div id="ov-wrap" style="display:none;">
+            <div class="section-head">
+              <h3 id="ov-asof">OVERVIEW</h3>
+              <div class="head-controls"><span class="live-chip"><span class="live-dot" id="dbDot"></span><span id="systemStatus">Checking services…</span></span></div>
+            </div>
+            <div class="live-hero">
+              <div class="hero-card"><div class="hero-title">Live user activity <span class="live-chip pulse"><span class="live-dot"></span> MONITORING</span></div><div class="hero-sub">Active sessions, current page, recent interaction and aggregate pointer presence.</div><div class="live-metric" id="liveUserMetric">0 <small>users online</small></div><div class="cursor-map" id="overviewCursorMap"><div class="cursor-dot" id="overviewCursor"></div></div></div>
+              <div class="hero-card"><div class="hero-title">Today at a glance</div><div class="hero-sub">Application usage telemetry</div><div class="metric-strip" style="grid-template-columns:repeat(2,1fr);margin-top:16px"><div class="metric-box"><b id="metricEvents">0</b><span>events today</span></div><div class="metric-box"><b id="metricClicks">0</b><span>clicks today</span></div><div class="metric-box"><b id="metricPages">0</b><span>page views</span></div><div class="metric-box"><b id="metricSessions">0</b><span>sessions</span></div></div></div>
+            </div>
+            <div class="panel" style="margin-bottom:26px"><div class="ph"><span>LIVE USERS</span><span id="overviewLiveCount">0 online</span></div><div style="overflow:auto"><table class="live-table"><thead><tr><th>User</th><th>Current page</th><th>Last activity</th><th>Clicks</th><th>Pointer</th></tr></thead><tbody id="overviewLiveBody"><tr class="empty-row"><td colspan="5">Loading…</td></tr></tbody></table></div></div>
+
+            <div class="stat-grid" id="statGrid"></div>
+            <div class="panel" style="margin-bottom:26px;">
+              <div class="ph"><span>SYSTEM HEALTH</span><span id="healthUpdated">—</span></div>
+              <div id="healthGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);"></div>
+            </div>
+            <div class="panels">
+              <div class="panel">
+                <div class="ph"><span>RECENT AUDIT RUNS</span><span id="auditCount"></span></div>
+                <table><thead><tr><th>URL</th><th>Status</th><th>Score</th><th>Started</th></tr></thead><tbody id="auditRows"></tbody></table>
+              </div>
+              <div class="panel">
+                <div class="ph"><span>RECENT SIGN-UPS</span><span id="userCount"></span></div>
+                <table><thead><tr><th>User</th><th>Role</th><th>Joined</th></tr></thead><tbody id="userRowsOv"></tbody></table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- USERS -->
+        <section class="section" id="sec-users">
+          <div class="section-head">
+            <h3 id="users-count">USERS</h3>
+            <div class="head-controls"><input class="search-input" id="userSearch" placeholder="Search username or email…"></div>
+          </div>
+          <div class="panel">
+            <table><thead><tr><th>User</th><th>Role</th><th>Projects</th><th>Audits</th><th>Last sign-in</th><th>Joined</th><th>Actions</th></tr></thead><tbody id="usersBody"><tr class="empty-row"><td colspan="7">Loading…</td></tr></tbody></table>
+            <div class="load-more"><button class="ghost-btn small" id="usersMore">Load more</button></div>
+          </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section class="section" id="sec-projects">
+          <div class="section-head"><h3 id="projects-count">PROJECTS</h3></div>
+          <div class="panel">
+            <table><thead><tr><th>Name</th><th>URL</th><th>Owner</th><th>Last audit</th><th>Created</th><th>Actions</th></tr></thead><tbody id="projectsBody"><tr class="empty-row"><td colspan="6">Loading…</td></tr></tbody></table>
+            <div class="load-more"><button class="ghost-btn small" id="projectsMore">Load more</button></div>
+          </div>
+        </section>
+
+        <!-- AUDIT RUNS -->
+        <section class="section" id="sec-audits">
+          <div class="section-head">
+            <h3 id="audits-count">AUDIT RUNS</h3>
+            <div class="head-controls">
+              <select id="auditStatusFilter">
+                <option value="">All statuses</option>
+                <option value="completed">Completed</option>
+                <option value="running">Running</option>
+                <option value="failed">Failed</option>
+              </select>
+            </div>
+          </div>
+          <div class="panel">
+            <table><thead><tr><th>URL</th><th>Owner</th><th>Status</th><th>Score</th><th>Started</th><th>Actions</th></tr></thead><tbody id="auditsBody"><tr class="empty-row"><td colspan="6">Loading…</td></tr></tbody></table>
+            <div class="load-more"><button class="ghost-btn small" id="auditsMore">Load more</button></div>
+          </div>
+        </section>
+
+        <!-- MONITORING & ALERTS -->
+        <section class="section" id="sec-monitoring">
+          <div class="section-head"><h3>MONITORING &amp; ALERTS</h3></div>
+          <div class="panels">
+            <div class="panel">
+              <div class="ph"><span>MONITOR JOBS</span><span id="jobsCount"></span></div>
+              <table><thead><tr><th>URL</th><th>Owner</th><th>Every</th><th>Status</th><th>Next run</th><th>Actions</th></tr></thead><tbody id="jobsBody"><tr class="empty-row"><td colspan="6">Loading…</td></tr></tbody></table>
+            </div>
+            <div class="panel">
+              <div class="ph"><span>ALERTS</span><span id="alertsCount"></span></div>
+              <table><thead><tr><th>Message</th><th>Owner</th><th>When</th><th></th></tr></thead><tbody id="alertsBody"><tr class="empty-row"><td colspan="4">Loading…</td></tr></tbody></table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ACTIVITY -->
+        <section class="section" id="sec-activity">
+          <div class="section-head"><h3>ACTIVITY FEED <span style="color:var(--faint)">— every recent action across all users</span></h3></div>
+          <div class="panel"><ul class="activity-feed" id="activityList"><li>Loading…</li></ul></div>
+        </section>
+
+
+        <!-- LIVE USERS -->
+        <section class="section" id="sec-live">
+          <div class="section-head"><h3>LIVE USERS <span style="color:var(--faint)">— real-time presence</span></h3><div class="head-controls"><span class="live-chip"><span class="live-dot"></span><span id="liveUsersStatus">updating</span></span></div></div>
+          <div class="metric-strip" id="liveMetrics"><div class="metric-box"><b id="lmOnline">0</b><span>online now</span></div><div class="metric-box"><b id="lmActive">0</b><span>active in 90s</span></div><div class="metric-box"><b id="lmClicks">0</b><span>clicks observed</span></div><div class="metric-box"><b id="lmMoves">0</b><span>pointer moves</span></div><div class="metric-box"><b id="lmPages">0</b><span>page views</span></div></div>
+          <div class="panel"><div style="overflow:auto"><table class="live-table"><thead><tr><th>User</th><th>Page</th><th>Session started</th><th>Last seen</th><th>Idle</th><th>Clicks</th><th>Pointer</th><th>Actions</th></tr></thead><tbody id="liveUsersBody"><tr class="empty-row"><td colspan="8">Loading…</td></tr></tbody></table></div></div>
+        </section>
+
+        <!-- SESSIONS & ACTIVITY -->
+        <section class="section" id="sec-sessions">
+          <div class="section-head"><h3>SESSIONS &amp; ACTIVITY <span style="color:var(--faint)">— detailed usage timeline</span></h3><div class="head-controls"><button class="ghost-btn small" id="sessionsRefresh">Refresh</button></div></div>
+          <div class="panels">
+            <div class="panel"><div class="ph"><span>USER SESSIONS</span><span>recent first</span></div><div style="overflow:auto"><table><thead><tr><th>User</th><th>Started</th><th>Last seen</th><th>Duration</th><th>Events</th><th>Clicks</th><th>Pages</th></tr></thead><tbody id="sessionsBody"><tr class="empty-row"><td colspan="7">Loading…</td></tr></tbody></table></div></div>
+            <div class="panel"><div class="ph"><span>ALL UI ACTIVITY</span><span id="activityStreamCount">—</span></div><div style="max-height:560px;overflow:auto"><ul class="activity-feed" id="detailActivityList"><li>Loading…</li></ul></div></div>
+          </div>
+          <div class="panel" style="margin-top:20px"><div class="ph"><span>USER INSPECTOR</span><span id="inspectorWho">Select a user from Live Users</span></div><div id="userInspector" style="padding:16px;color:var(--dim);font-size:12.5px">Select <b>Inspect</b> to see that user's recent activity, page visits, feature events and pointer samples. No passwords or keystrokes are collected.</div></div>
+        </section>
+
+        <!-- PERFORMANCE -->
+        <section class="section" id="sec-performance">
+          <div class="section-head"><h3>AGENT PERFORMANCE</h3></div>
+          <div id="perf-wrap">
+            <div class="stat-grid" id="perfStatGrid"></div>
+            <div class="panels">
+              <div class="panel">
+                <div class="ph"><span>AUDITS PER DAY (LAST 14 DAYS)</span></div>
+                <div class="bars" id="perfBars"></div>
+              </div>
+              <div class="panel">
+                <div class="ph"><span>MOST ACTIVE USERS</span></div>
+                <table><thead><tr><th>User</th><th>Audits</th></tr></thead><tbody id="topUsersBody"></tbody></table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- API USAGE -->
+        <section class="section" id="sec-apiusage">
+          <div class="section-head"><h3>AI &amp; API USAGE</h3><div class="head-controls"><select id="apiProviderFilter"><option value="">All providers</option><option value="gemini">Gemini</option><option value="groq">Groq</option><option value="serpapi">SerpApi</option><option value="pagespeed">PageSpeed</option><option value="python_engine">Python Engine</option></select><button class="ghost-btn small" id="apiUsageRefresh">Refresh</button></div></div>
+          <div class="stat-grid" id="apiUsageStats"></div>
+          <div class="panel"><div class="ph"><span>RECENT OUTBOUND API CALLS</span><span id="apiUsageCount">—</span></div><div style="overflow:auto"><table><thead><tr><th>Time</th><th>Provider</th><th>Operation</th><th>User</th><th>Status</th><th>Duration</th><th>Tokens</th><th>Cost est.</th></tr></thead><tbody id="apiUsageBody"><tr class="empty-row"><td colspan="8">Loading…</td></tr></tbody></table></div></div>
+        </section>
+
+        <!-- LOGIN HISTORY -->
+        <section class="section" id="sec-logins">
+          <div class="section-head"><h3>LOGIN HISTORY</h3><div class="head-controls"><button class="ghost-btn small" id="loginHistoryRefresh">Refresh</button></div></div>
+          <div class="stat-grid" id="loginHistoryStats"></div>
+          <div class="panel"><div class="ph"><span>AUTHENTICATION EVENTS</span><span id="loginHistoryCount">—</span></div><div style="overflow:auto"><table><thead><tr><th>Time</th><th>Event</th><th>User</th><th>Identifier</th><th>IP</th><th>User agent</th></tr></thead><tbody id="loginHistoryBody"><tr class="empty-row"><td colspan="6">Loading…</td></tr></tbody></table></div></div>
+        </section>
+
+        <!-- ADMIN AUDIT LOG -->
+        <section class="section" id="sec-auditlog">
+          <div class="section-head"><h3 id="auditlog-count">ADMIN AUDIT LOG</h3></div>
+          <div class="panel">
+            <table><thead><tr><th>Action</th><th>Target</th><th>Admin</th><th>Details</th><th>When</th></tr></thead><tbody id="auditlogBody"><tr class="empty-row"><td colspan="5">Loading…</td></tr></tbody></table>
+            <div class="load-more"><button class="ghost-btn small" id="auditlogMore">Load more</button></div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-head"><span id="modalTitle">Detail</span><button class="modal-close" id="modalClose">✕</button></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  const AUTH_KEY = 'seoAgentAdminAuth';
+  const loginScreen = document.getElementById('loginScreen');
+  const app = document.getElementById('app');
+  const loginForm = document.getElementById('loginForm');
+  const loginBtn = document.getElementById('loginBtn');
+  const loginErr = document.getElementById('loginErr');
+
+  const offsets = { users:0, projects:0, audits:0, auditlog:0 };
+  const PAGE = 25;
+  let currentSection = 'overview';
+  let meUserId = null;
+
+  function getAuth(){ try { return JSON.parse(localStorage.getItem(AUTH_KEY) || '{}'); } catch(e){ return {}; } }
+  function setAuth(v){ localStorage.setItem(AUTH_KEY, JSON.stringify(v)); }
+  function clearAuth(){ localStorage.removeItem(AUTH_KEY); }
+  function authHeaders(){ const a = getAuth(); return a.token ? { Authorization: 'Bearer ' + a.token } : {}; }
+  function showErr(msg){ loginErr.textContent = msg; loginErr.style.display = 'block'; }
+  function escapeHtml(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function timeAgo(iso){
+    if (!iso) return '—';
+    const diffMin = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
+    if (diffMin < 1) return 'just now';
+    if (diffMin < 60) return diffMin + 'm ago';
+    const diffH = Math.round(diffMin / 60);
+    if (diffH < 24) return diffH + 'h ago';
+    return Math.round(diffH / 24) + 'd ago';
+  }
+  function toast(msg, isErr){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isErr ? ' err' : '');
+    t.style.display = 'block';
+    clearTimeout(t._h);
+    t._h = setTimeout(() => t.style.display = 'none', 3200);
+  }
+  function pill(kind, text){
+    const map = { admin:'role-admin', user:'role-user', completed:'status-completed', running:'status-running', failed:'status-failed' };
+    const cls = map[text] || '';
+    return '<span class="' + (kind === 'role' ? 'role-pill ' : 'status-pill ') + cls + '">' + text + '</span>';
+  }
+  function statCard(num, label, sub){
+    return '<div class="stat"><div class="num">' + num + '</div><div class="lbl">' + label + '</div>' + (sub ? '<div class="sub">' + sub + '</div>' : '') + '</div>';
+  }
+
+  let apiBusy = 0;
+  async function api(path, opts){
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 20000);
+    const options = { ...(opts || {}), headers: { 'Content-Type': 'application/json', ...authHeaders(), ...((opts && opts.headers) || {}) }, signal: controller.signal };
+    try {
+      const r = await fetch(path, options);
+      const d = await r.json().catch(() => ({}));
+      if (r.status === 401) {
+        clearAuth();
+        loginScreen.style.display = 'flex';
+        app.style.display = 'none';
+        throw new Error('Session expired. Please sign in again.');
+      }
+      if (r.status === 403) throw new Error(d.error || 'Admin access required.');
+      if (!r.ok) throw new Error(d.error || 'Request failed.');
+      return d;
+    } catch(e) {
+      if (e.name === 'AbortError') throw new Error('Request timed out. Check Node.js, PostgreSQL and the Python engine.');
+      if (e instanceof TypeError) throw new Error('Cannot reach the SEO Agent server. Make sure npm start is running.');
+      throw e;
+    } finally { clearTimeout(timeout); }
+  }
+  async function apiRaw(path, method){
+    const r = await fetch(path, { method: method || 'GET', headers: authHeaders() });
+    if (r.status === 401 || r.status === 403) { clearAuth(); location.reload(); throw new Error('Session expired.'); }
+    return r;
+  }
+
+  function setLive(state, text){
+    const dot=document.getElementById('liveDot');
+    const label=document.getElementById('liveText');
+    if(dot) dot.className='live-dot' + (state==='busy'?' busy':state==='bad'?' bad':'');
+    if(label) label.textContent=text || 'LIVE';
+  }
+  function healthCard(label, value, detail, state){
+    const cls=state==='ok'?'badge-on':state==='bad'?'badge-off':'';
+    return '<div style="background:var(--panel);padding:13px 15px;">' +
+      '<div style="font-family:var(--mono);font-size:10px;color:var(--faint);text-transform:uppercase;">'+escapeHtml(label)+'</div>' +
+      '<div class="'+cls+'" style="font-family:var(--mono);font-size:14px;margin-top:6px;">'+escapeHtml(value)+'</div>' +
+      '<div style="font-size:10.5px;color:var(--faint);margin-top:4px;word-break:break-word;">'+escapeHtml(detail||'')+'</div></div>';
+  }
+  async function loadHealth(){
+    try{
+      const d=await api('/api/admin/health',{method:'GET'});
+      const h=d.health||{};
+      document.getElementById('systemStatus').textContent=h.overall==='healthy'?'ALL SYSTEMS OK':'CHECK SERVICES';
+      document.getElementById('healthUpdated').textContent='updated '+new Date().toLocaleTimeString();
+      document.getElementById('healthGrid').innerHTML =
+        healthCard('PostgreSQL',h.database?.status==='healthy'?'Healthy':'Unavailable',h.database?.latencyMs!=null?h.database.latencyMs+' ms':'',h.database?.status==='healthy'?'ok':'bad')+
+        healthCard('Python SEO Engine',h.python?.status==='healthy'?'Healthy':'Unavailable',h.python?.url||'',h.python?.status==='healthy'?'ok':'bad')+
+        healthCard('Node.js API','Healthy','uptime '+Math.round(Number(h.uptimeSeconds||0))+'s','ok')+
+        healthCard('Memory',h.memory?.rssMb!=null?h.memory.rssMb+' MB':'—','process RSS','ok');
+      const dot=document.getElementById('dbDot');
+      if(dot) dot.className='live-dot '+(h.overall==='healthy'?'':'bad');
+      return d;
+    }catch(e){
+      document.getElementById('systemStatus').textContent='SERVICE CHECK FAILED';
+      document.getElementById('healthUpdated').textContent=e.message;
+      const dot=document.getElementById('dbDot'); if(dot) dot.className='live-dot bad';
+      return null;
+    }
+  }
+  let autoRefreshTimer=null;
+  function startAutoRefresh(){
+    clearInterval(autoRefreshTimer);
+    autoRefreshTimer=setInterval(async()=>{
+      if(document.hidden || !getAuth().token) return;
+      try{
+        setLive('busy','UPDATING');
+        await loadHealth();
+        await loadLiveUsers();
+        await loadSection(currentSection, true);
+        setLive('ok','LIVE');
+      }catch(_){ setLive('bad','ERROR'); }
+    },15000);
+  }
+
+  /* ---------------- Login ---------------- */
+  loginForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    loginErr.style.display = 'none';
+    loginBtn.disabled = true; loginBtn.textContent = 'Signing in…';
+    try {
+      const identifier = document.getElementById('identifier').value.trim();
+      const password = document.getElementById('password').value;
+      const d = await api('/api/auth/login', { method: 'POST', body: JSON.stringify({ identifier, password }) });
+      if (d.user.role !== 'admin') { clearAuth(); showErr('This account does not have admin access.'); return; }
+      setAuth({ token: d.token, user: d.user });
+      enterApp(d.user);
+    } catch(err) { showErr(err.message); }
+    finally { loginBtn.disabled = false; loginBtn.textContent = 'Sign in'; }
+  });
+  document.getElementById('logoutBtn').addEventListener('click', async function(){
+    try { await api('/api/auth/logout', { method: 'POST' }); } catch(e){}
+    clearAuth(); location.reload();
+  });
+  document.getElementById('refreshBtn').addEventListener('click', async () => {
+    const btn=document.getElementById('refreshBtn');
+    btn.classList.add('refreshing'); setLive('busy','UPDATING');
+    try { await Promise.all([loadHealth(), loadSection(currentSection, true)]); toast('Dashboard updated.'); setLive('ok','LIVE'); }
+    catch(e){ toast(e.message,true); setLive('bad','ERROR'); }
+    finally { btn.classList.remove('refreshing'); }
+  });
+
+  function enterApp(user){
+    meUserId = user.id;
+    loginScreen.style.display = 'none';
+    app.style.display = 'block';
+    document.getElementById('whoami').textContent = user.username + ' (' + user.role + ')';
+    document.getElementById('sideWho').textContent = user.username;
+    loadSection('overview');
+    loadHealth();
+    loadLiveUsers();
+    startAutoRefresh();
+  }
+
+  /* ---------------- Nav / routing ---------------- */
+  const titles = { overview:'Overview', users:'Users', projects:'Projects', audits:'Audit Runs', monitoring:'Monitoring & Alerts', activity:'Activity Feed', live:'Live Users', sessions:'Sessions & Activity', performance:'Agent Performance', auditlog:'Admin Audit Log', apiusage:'API Usage', logins:'Login History' };
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const sec = el.getAttribute('data-section');
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      el.classList.add('active');
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById('sec-' + sec).classList.add('active');
+      document.getElementById('pageTitle').textContent = titles[sec];
+      currentSection = sec;
+      loadSection(sec);
+    });
+  });
+
+  function loadSection(sec, force){
+    if (sec === 'overview') return loadOverview();
+    if (sec === 'users') { if (force) offsets.users = 0; return loadUsers(force); }
+    if (sec === 'projects') { if (force) offsets.projects = 0; return loadProjects(force); }
+    if (sec === 'audits') { if (force) offsets.audits = 0; return loadAudits(force); }
+    if (sec === 'monitoring') return loadMonitoring();
+    if (sec === 'activity') return loadActivity();
+    if (sec === 'live') return loadLiveUsers();
+    if (sec === 'sessions') return loadSessions();
+    if (sec === 'performance') return loadPerformance();
+    if (sec === 'auditlog') { if (force) offsets.auditlog = 0; return loadAuditLog(force); }
+    if (sec === 'apiusage') return loadApiUsage();
+    if (sec === 'logins') return loadLoginHistory();
+  }
+
+  /* ---------------- Overview ---------------- */
+  async function loadOverview(){
+    document.getElementById('ov-loading').style.display = 'block';
+    document.getElementById('ov-wrap').style.display = 'none';
+    try {
+      const d = await api('/api/admin/stats', { method:'GET' });
+      const c = d.counts;
+      document.getElementById('ov-asof').innerHTML = 'OVERVIEW <span style="color:var(--faint)">— as of ' + new Date(d.generatedAt).toLocaleTimeString() + '</span>';
+      document.getElementById('statGrid').innerHTML =
+        statCard(c.users, 'Total users', c.usersByRole.admin + ' admin · ' + c.usersByRole.user + ' user') +
+        statCard(c.projects, 'Saved projects') +
+        statCard(c.auditRuns, 'Audit runs', '<em>' + c.auditRunsByStatus.completed + ' done</em> · ' + c.auditRunsByStatus.running + ' running · <i>' + c.auditRunsByStatus.failed + ' failed</i>') +
+        statCard(c.activeSessions, 'Active sessions') +
+        statCard(c.rankSnapshots, 'Rank snapshots taken') +
+        statCard(c.monitorJobs, 'Monitor jobs', c.monitorJobsActive + ' enabled') +
+        statCard(c.alerts, 'Alerts generated', c.alertsUnread + ' unread') +
+        statCard(c.usersByRole.admin, 'Admin accounts');
+      const tt=d.telemetryToday||{}; document.getElementById('metricEvents').textContent=Number(tt.events||0).toLocaleString(); document.getElementById('metricClicks').textContent=Number(tt.clicks||0).toLocaleString(); document.getElementById('metricPages').textContent=Number(tt.pages||0).toLocaleString(); document.getElementById('metricSessions').textContent=Number(c.activeSessions||0).toLocaleString();
+      document.getElementById('auditCount').textContent = c.auditRuns + ' total';
+      document.getElementById('userCount').textContent = c.users + ' total';
+      const auditRows = d.recentAuditRuns || [];
+      document.getElementById('auditRows').innerHTML = auditRows.length ? auditRows.map(r =>
+        '<tr><td class="dim">' + escapeHtml(r.url) + '</td><td>' + pill('status', r.status) + '</td><td class="dim">' + (r.score != null ? Number(r.score).toFixed(1) : '—') + '</td><td class="dim">' + timeAgo(r.startedAt) + '</td></tr>'
+      ).join('') : '<tr class="empty-row"><td colspan="4">No audit runs recorded yet.</td></tr>';
+      const userRows = d.recentUsers || [];
+      document.getElementById('userRowsOv').innerHTML = userRows.length ? userRows.map(u =>
+        '<tr><td>' + escapeHtml(u.username) + '<div class="dim" style="font-size:11px;margin-top:2px;">' + escapeHtml(u.email) + '</div></td><td>' + pill('role', u.role) + '</td><td class="dim">' + timeAgo(u.createdAt) + '</td></tr>'
+      ).join('') : '<tr class="empty-row"><td colspan="3">No users yet.</td></tr>';
+      document.getElementById('ov-loading').style.display = 'none';
+      document.getElementById('ov-wrap').style.display = 'block';
+    } catch(err){ handleLoadError(err, 'ov-loading'); }
+  }
+
+  /* ---------------- Users ---------------- */
+  let userSearchTimer = null;
+  document.getElementById('userSearch').addEventListener('input', function(){
+    clearTimeout(userSearchTimer);
+    userSearchTimer = setTimeout(() => { offsets.users = 0; loadUsers(true); }, 350);
+  });
+  document.getElementById('usersMore').addEventListener('click', () => loadUsers(false));
+
+  async function loadUsers(reset){
+    const body = document.getElementById('usersBody');
+    if (reset) body.innerHTML = '<tr class="empty-row"><td colspan="7">Loading…</td></tr>';
+    try {
+      const search = encodeURIComponent(document.getElementById('userSearch').value.trim());
+      const d = await api('/api/admin/users?limit=' + PAGE + '&offset=' + offsets.users + (search ? '&search=' + search : ''), { method:'GET' });
+      document.getElementById('users-count').innerHTML = 'USERS <b>' + d.total + '</b> total';
+      const rows = d.users.map(u => {
+        const canDemote = u.role === 'admin';
+        const roleBtn = canDemote
+          ? '<button class="ghost-btn small" data-act="demote" data-id="' + u.id + '">Demote</button>'
+          : '<button class="ghost-btn small" data-act="promote" data-id="' + u.id + '">Make admin</button>';
+        const delBtn = '<button class="ghost-btn small danger" data-act="deluser" data-id="' + u.id + '" data-name="' + escapeHtml(u.username) + '">Delete</button>';
+        return '<tr><td>' + escapeHtml(u.username) + '<div class="dim" style="font-size:11px;margin-top:2px;">' + escapeHtml(u.email) + '</div></td>' +
+          '<td>' + pill('role', u.role) + '</td>' +
+          '<td class="dim">' + u.projectCount + '</td>' +
+          '<td class="dim">' + u.auditCount + '</td>' +
+          '<td class="dim">' + timeAgo(u.lastSeen) + '</td>' +
+          '<td class="dim">' + timeAgo(u.createdAt) + '</td>' +
+          '<td><div class="row-actions">' + roleBtn + delBtn + '</div></td></tr>';
+      }).join('');
+      if (reset) body.innerHTML = rows || '<tr class="empty-row"><td colspan="7">No users found.</td></tr>';
+      else body.insertAdjacentHTML('beforeend', rows);
+      offsets.users += d.users.length;
+      document.getElementById('usersMore').style.display = offsets.users >= d.total ? 'none' : 'inline-block';
+      wireUserActions();
+    } catch(err){ if (reset) body.innerHTML = '<tr class="empty-row"><td colspan="7">' + escapeHtml(err.message) + '</td></tr>'; }
+  }
+  function wireUserActions(){
+    document.querySelectorAll('[data-act="promote"], [data-act="demote"]').forEach(btn => {
+      btn.onclick = async () => {
+        const role = btn.getAttribute('data-act') === 'promote' ? 'admin' : 'user';
+        try { await api('/api/admin/users/' + btn.getAttribute('data-id') + '/role', { method:'POST', body: JSON.stringify({ role }) }); toast('Role updated.'); loadUsers(true); }
+        catch(e){ toast(e.message, true); }
+      };
+    });
+    document.querySelectorAll('[data-act="deluser"]').forEach(btn => {
+      btn.onclick = async () => {
+        if (!confirm('Delete user "' + btn.getAttribute('data-name') + '" and all their projects, audits and jobs? This cannot be undone.')) return;
+        try { await api('/api/admin/users/' + btn.getAttribute('data-id'), { method:'DELETE' }); toast('User deleted.'); loadUsers(true); }
+        catch(e){ toast(e.message, true); }
+      };
+    });
+  }
+
+  /* ---------------- Projects ---------------- */
+  document.getElementById('projectsMore').addEventListener('click', () => loadProjects(false));
+  async function loadProjects(reset){
+    const body = document.getElementById('projectsBody');
+    if (reset) body.innerHTML = '<tr class="empty-row"><td colspan="6">Loading…</td></tr>';
+    try {
+      const d = await api('/api/admin/projects?limit=' + PAGE + '&offset=' + offsets.projects, { method:'GET' });
+      document.getElementById('projects-count').innerHTML = 'PROJECTS <b>' + d.total + '</b> total';
+      const rows = d.projects.map(p =>
+        '<tr><td>' + escapeHtml(p.name) + '</td><td class="dim">' + escapeHtml(p.url) + '</td>' +
+        '<td class="dim">' + escapeHtml(p.ownerUsername) + '</td>' +
+        '<td class="dim">' + timeAgo(p.lastAuditAt) + '</td>' +
+        '<td class="dim">' + timeAgo(p.createdAt) + '</td>' +
+        '<td><button class="ghost-btn small danger" data-id="' + p.id + '" data-name="' + escapeHtml(p.name) + '">Delete</button></td></tr>'
+      ).join('');
+      if (reset) body.innerHTML = rows || '<tr class="empty-row"><td colspan="6">No projects found.</td></tr>';
+      else body.insertAdjacentHTML('beforeend', rows);
+      offsets.projects += d.projects.length;
+      document.getElementById('projectsMore').style.display = offsets.projects >= d.total ? 'none' : 'inline-block';
+      body.querySelectorAll('button[data-id]').forEach(btn => {
+        btn.onclick = async () => {
+          if (!confirm('Delete project "' + btn.getAttribute('data-name') + '"?')) return;
+          try { await api('/api/admin/projects/' + btn.getAttribute('data-id'), { method:'DELETE' }); toast('Project deleted.'); loadProjects(true); }
+          catch(e){ toast(e.message, true); }
+        };
+      });
+    } catch(err){ if (reset) body.innerHTML = '<tr class="empty-row"><td colspan="6">' + escapeHtml(err.message) + '</td></tr>'; }
+  }
+
+  /* ---------------- Audit runs ---------------- */
+  document.getElementById('auditsMore').addEventListener('click', () => loadAudits(false));
+  document.getElementById('auditStatusFilter').addEventListener('change', () => { offsets.audits = 0; loadAudits(true); });
+  async function loadAudits(reset){
+    const body = document.getElementById('auditsBody');
+    if (reset) body.innerHTML = '<tr class="empty-row"><td colspan="6">Loading…</td></tr>';
+    try {
+      const status = document.getElementById('auditStatusFilter').value;
+      const d = await api('/api/admin/audit-runs?limit=' + PAGE + '&offset=' + offsets.audits + (status ? '&status=' + status : ''), { method:'GET' });
+      document.getElementById('audits-count').innerHTML = 'AUDIT RUNS <b>' + d.total + '</b> total';
+      const rows = d.auditRuns.map(a =>
+        '<tr><td class="dim">' + escapeHtml(a.url) + '</td><td class="dim">' + escapeHtml(a.ownerUsername) + '</td>' +
+        '<td>' + pill('status', a.status) + '</td><td class="dim">' + (a.score != null ? Number(a.score).toFixed(1) : '—') + '</td>' +
+        '<td class="dim">' + timeAgo(a.startedAt) + '</td>' +
+        '<td><div class="row-actions"><button class="ghost-btn small" data-view="' + a.id + '">View</button><button class="ghost-btn small danger" data-del="' + a.id + '">Delete</button></div></td></tr>'
+      ).join('');
+      if (reset) body.innerHTML = rows || '<tr class="empty-row"><td colspan="6">No audit runs found.</td></tr>';
+      else body.insertAdjacentHTML('beforeend', rows);
+      offsets.audits += d.auditRuns.length;
+      document.getElementById('auditsMore').style.display = offsets.audits >= d.total ? 'none' : 'inline-block';
+      body.querySelectorAll('[data-view]').forEach(btn => btn.onclick = () => viewAuditRun(btn.getAttribute('data-view')));
+      body.querySelectorAll('[data-del]').forEach(btn => btn.onclick = async () => {
+        if (!confirm('Delete this audit run?')) return;
+        try { await api('/api/admin/audit-runs/' + btn.getAttribute('data-del'), { method:'DELETE' }); toast('Audit run deleted.'); loadAudits(true); }
+        catch(e){ toast(e.message, true); }
+      });
+    } catch(err){ if (reset) body.innerHTML = '<tr class="empty-row"><td colspan="6">' + escapeHtml(err.message) + '</td></tr>'; }
+  }
+  async function viewAuditRun(id){
+    try {
+      const d = await api('/api/admin/audit-runs/' + id, { method:'GET' });
+      const a = d.auditRun;
+      document.getElementById('modalTitle').textContent = a.url;
+      document.getElementById('modalBody').innerHTML =
+        '<div style="margin-bottom:10px; color:var(--dim); font-size:12.5px;">Owner: ' + escapeHtml(a.ownerUsername) + ' (' + escapeHtml(a.ownerEmail) + ') · Status: ' + escapeHtml(a.status) + ' · Score: ' + (a.score != null ? Number(a.score).toFixed(1) : '—') + '</div>' +
+        (a.errorMessage ? '<div style="color:var(--bad); margin-bottom:10px; font-size:12.5px;">Error: ' + escapeHtml(a.errorMessage) + '</div>' : '') +
+        '<pre>' + escapeHtml(JSON.stringify(a.result, null, 2)) + '</pre>';
+      openModal();
+    } catch(e){ toast(e.message, true); }
+  }
+
+  /* ---------------- Monitoring & alerts ---------------- */
+  async function loadMonitoring(){
+    const jobsBody = document.getElementById('jobsBody');
+    const alertsBody = document.getElementById('alertsBody');
+    jobsBody.innerHTML = '<tr class="empty-row"><td colspan="6">Loading…</td></tr>';
+    alertsBody.innerHTML = '<tr class="empty-row"><td colspan="4">Loading…</td></tr>';
+    try {
+      const [jd, ad] = await Promise.all([
+        api('/api/admin/monitor-jobs', { method:'GET' }),
+        api('/api/admin/alerts', { method:'GET' })
+      ]);
+      document.getElementById('jobsCount').textContent = jd.jobs.length + ' shown';
+      jobsBody.innerHTML = jd.jobs.length ? jd.jobs.map(j =>
+        '<tr><td class="dim">' + escapeHtml(j.url) + '</td><td class="dim">' + escapeHtml(j.ownerUsername) + '</td>' +
+        '<td class="dim">' + j.everyHours + 'h</td>' +
+        '<td class="' + (j.enabled ? 'badge-on' : 'badge-off') + '">' + (j.enabled ? '● enabled' : '○ disabled') + '</td>' +
+        '<td class="dim">' + timeAgo(j.nextRunAt) + '</td>' +
+        '<td><div class="row-actions"><button class="ghost-btn small" data-toggle="' + j.id + '">' + (j.enabled ? 'Disable' : 'Enable') + '</button><button class="ghost-btn small danger" data-deljob="' + j.id + '">Delete</button></div></td></tr>'
+      ).join('') : '<tr class="empty-row"><td colspan="6">No monitor jobs yet.</td></tr>';
+      jobsBody.querySelectorAll('[data-toggle]').forEach(btn => btn.onclick = async () => {
+        try { await api('/api/admin/monitor-jobs/' + btn.getAttribute('data-toggle') + '/toggle', { method:'POST' }); loadMonitoring(); }
+        catch(e){ toast(e.message, true); }
+      });
+      jobsBody.querySelectorAll('[data-deljob]').forEach(btn => btn.onclick = async () => {
+        if (!confirm('Delete this monitor job?')) return;
+        try { await api('/api/admin/monitor-jobs/' + btn.getAttribute('data-deljob'), { method:'DELETE' }); toast('Job deleted.'); loadMonitoring(); }
+        catch(e){ toast(e.message, true); }
+      });
+
+      document.getElementById('alertsCount').textContent = ad.alerts.length + ' shown';
+      alertsBody.innerHTML = ad.alerts.length ? ad.alerts.map(a =>
+        '<tr><td>' + escapeHtml(a.message) + (a.url ? '<div class="dim" style="font-size:11px;margin-top:2px;">' + escapeHtml(a.url) + '</div>' : '') + '</td>' +
+        '<td class="dim">' + escapeHtml(a.ownerUsername) + '</td><td class="dim">' + timeAgo(a.createdAt) + '</td>' +
+        '<td><button class="ghost-btn small danger" data-delalert="' + a.id + '">Delete</button></td></tr>'
+      ).join('') : '<tr class="empty-row"><td colspan="4">No alerts yet.</td></tr>';
+      alertsBody.querySelectorAll('[data-delalert]').forEach(btn => btn.onclick = async () => {
+        if (!confirm('Delete this alert?')) return;
+        try { await api('/api/admin/alerts/' + btn.getAttribute('data-delalert'), { method:'DELETE' }); toast('Alert deleted.'); loadMonitoring(); }
+        catch(e){ toast(e.message, true); }
+      });
+    } catch(err){ handleLoadError(err); }
+  }
+
+  /* ---------------- Activity feed ---------------- */
+  async function loadActivity(){
+    const list = document.getElementById('activityList');
+    list.innerHTML = '<li>Loading…</li>';
+    try {
+      const d = await api('/api/admin/activity', { method:'GET' });
+      list.innerHTML = d.events.length ? d.events.map(e =>
+        '<li><span class="tp tp-' + e.type + '">' + e.type + '</span><span class="tx">' + escapeHtml(e.text) + '</span><span class="ti">' + timeAgo(e.ts) + '</span></li>'
+      ).join('') : '<li>No recent activity.</li>';
+    } catch(err){ if (/expired/i.test(err.message)) return; list.innerHTML = '<li>' + escapeHtml(err.message) + '</li>'; }
+  }
+
+
+  /* ---------------- Live users / sessions ---------------- */
+  function fmtDuration(ms){ if(ms==null||!Number.isFinite(Number(ms))) return '—'; let s=Math.max(0,Math.round(Number(ms)/1000)); const d=Math.floor(s/86400);s%=86400;const h=Math.floor(s/3600);s%=3600;const m=Math.floor(s/60);s%=60;return (d?d+'d ':'')+(h?h+'h ':'')+(m?m+'m ':'')+s+'s'; }
+  function liveRow(u){
+    const idle=Number(u.idleSeconds||0); const online=Date.now()-new Date(u.lastSeenAt).getTime()<90000;
+    return '<tr><td><span class="online-dot '+(idle>60?'idle-dot':'')+'"></span><b>'+escapeHtml(u.username)+'</b><div class="mini">'+escapeHtml(u.email)+'</div></td><td><div>'+escapeHtml(u.pageTitle||u.pagePath||u.lastPath||'—')+'</div><div class="mini">'+escapeHtml(u.pagePath||'—')+'</div></td><td class="dim">'+timeAgo(u.sessionStartedAt)+'</td><td class="dim">'+timeAgo(u.lastSeenAt)+'</td><td class="dim">'+(idle?idle+'s':'active')+'</td><td class="dim">'+Number(u.clicks||0)+'</td><td class="dim">'+(u.cursorX!=null?u.cursorX+', '+u.cursorY:'—')+'</td><td><button class="ghost-btn small" data-inspect="'+u.id+'" data-name="'+escapeHtml(u.username)+'">Inspect</button></td></tr>';
+  }
+  async function loadLiveUsers(){
+    try{
+      const d=await api('/api/admin/live-users',{method:'GET'}); const users=d.users||[]; const clicks=users.reduce((s,u)=>s+Number(u.clicks||0),0),moves=users.reduce((s,u)=>s+Number(u.mouseMoves||0),0),pages=users.reduce((s,u)=>s+Number(u.pageViews||0),0);
+      ['lmOnline','liveUserMetric','overviewLiveCount'].forEach(()=>{});
+      document.getElementById('lmOnline').textContent=users.length;document.getElementById('lmActive').textContent=users.length;document.getElementById('lmClicks').textContent=clicks;document.getElementById('lmMoves').textContent=moves;document.getElementById('lmPages').textContent=pages;document.getElementById('liveUserMetric').innerHTML=users.length+' <small>users online</small>';document.getElementById('overviewLiveCount').textContent=users.length+' online';document.getElementById('liveUsersStatus').textContent='updated '+new Date().toLocaleTimeString();
+      document.getElementById('liveUsersBody').innerHTML=users.length?users.map(liveRow).join(''):'<tr class="empty-row"><td colspan="8">No users active in the last 90 seconds.</td></tr>';
+      document.getElementById('overviewLiveBody').innerHTML=users.length?users.slice(0,8).map(liveRow).join(''):'<tr class="empty-row"><td colspan="5">No users online.</td></tr>';
+      const c=users[0]; if(c&&c.cursorX!=null){const map=document.getElementById('overviewCursorMap'),dot=document.getElementById('overviewCursor');dot.style.left=Math.min(100,Math.max(0,(c.cursorX/Math.max(1,c.viewportWidth||innerWidth))*100))+'%';dot.style.top=Math.min(100,Math.max(0,(c.cursorY/Math.max(1,c.viewportHeight||innerHeight))*100))+'%';}
+      document.querySelectorAll('[data-inspect]').forEach(b=>b.onclick=()=>inspectUser(b.getAttribute('data-inspect'),b.getAttribute('data-name')));
+    }catch(e){handleLoadError(e);}
+  }
+  async function loadSessions(){
+    try{
+      const [sd,ad]=await Promise.all([api('/api/admin/sessions?limit=100',{method:'GET'}),api('/api/admin/activity-stream?limit=120',{method:'GET'})]);
+      const now=Date.now(); document.getElementById('sessionsBody').innerHTML=sd.sessions.length?sd.sessions.map(s=>{const start=new Date(s.startedAt).getTime(),end=s.endedAt?new Date(s.endedAt).getTime():Math.min(now,new Date(s.expiresAt).getTime());return '<tr><td><b>'+escapeHtml(s.username)+'</b><div class="mini">'+escapeHtml(s.email)+'</div></td><td class="dim">'+timeAgo(s.startedAt)+'</td><td class="dim">'+timeAgo(s.lastSeenAt)+'</td><td class="dim">'+fmtDuration(end-start)+'</td><td class="dim">'+s.eventCount+'</td><td class="dim">'+s.clickCount+'</td><td class="dim">'+s.pageViewCount+'</td></tr>';}).join(''):'<tr class="empty-row"><td colspan="7">No sessions recorded.</td></tr>';
+      document.getElementById('activityStreamCount').textContent=ad.events.length+' events';
+      document.getElementById('detailActivityList').innerHTML=ad.events.length?ad.events.map(e=>'<li><span class="event-icon">'+(e.eventType==='click'?'↗':e.eventType==='page_view'?'▣':e.eventType.startsWith('feature_')?'⚙':'•')+'</span><span class="tx"><b>'+escapeHtml(e.username)+'</b> <span class="mini">'+escapeHtml(e.eventType)+'</span><div class="activity-detail">'+escapeHtml(e.target||e.pagePath||'Application activity')+(e.durationMs?' · '+fmtDuration(e.durationMs):'')+'</div></span><span class="ti">'+timeAgo(e.createdAt)+'</span></li>').join(''):'<li>No UI activity recorded yet.</li>';
+    }catch(e){handleLoadError(e);}
+  }
+  async function inspectUser(id,name){
+    try{const d=await api('/api/admin/user-activity?userId='+encodeURIComponent(id)+'&limit=250',{method:'GET'}); document.getElementById('inspectorWho').textContent=name||id; const s=d.summary||{}; document.getElementById('userInspector').innerHTML='<div class="metric-strip"><div class="metric-box"><b>'+s.total+'</b><span>total events</span></div><div class="metric-box"><b>'+s.clicks+'</b><span>clicks</span></div><div class="metric-box"><b>'+s.pageviews+'</b><span>page views</span></div><div class="metric-box"><b>'+s.features+'</b><span>feature events</span></div><div class="metric-box"><b>'+s.visibility+'</b><span>visibility events</span></div></div><div style="max-height:430px;overflow:auto"><table><thead><tr><th>Time</th><th>Event</th><th>Page</th><th>Target</th><th>Pointer</th></tr></thead><tbody>'+d.events.map(e=>'<tr><td class="dim">'+timeAgo(e.createdAt)+'</td><td><span class="status-pill">'+escapeHtml(e.eventType)+'</span></td><td class="dim">'+escapeHtml(e.pagePath||'—')+'</td><td class="dim">'+escapeHtml(e.target||'—')+'</td><td class="dim">'+(e.cursorX!=null?e.cursorX+', '+e.cursorY:'—')+'</td></tr>').join('')+'</tbody></table></div>';
+    }catch(e){toast(e.message,true);}
+  }
+  document.getElementById('sessionsRefresh').addEventListener('click',()=>loadSessions());
+
+  /* ---------------- API usage + login history ---------------- */
+  function providerLabel(x){return String(x||'').replace('_',' ').replace(/\b\w/g,m=>m.toUpperCase());}
+  async function loadApiUsage(){
+    try{
+      const provider=encodeURIComponent(document.getElementById('apiProviderFilter').value||'');
+      const d=await api('/api/admin/api-usage?limit=200'+(provider?'&provider='+provider:''),{method:'GET'});
+      const totals=d.totals||[]; document.getElementById('apiUsageStats').innerHTML=totals.length?totals.map(x=>statCard(x.requests,providerLabel(x.provider),x.successful+' successful · '+x.failed+' failed · '+Number(x.tokens||0).toLocaleString()+' tokens')).join(''):statCard('0','API calls today','No outbound usage recorded yet.');
+      document.getElementById('apiUsageCount').textContent=(d.rows||[]).length+' shown';
+      document.getElementById('apiUsageBody').innerHTML=(d.rows||[]).length?d.rows.map(x=>'<tr><td class="dim">'+timeAgo(x.createdAt)+'</td><td><b>'+escapeHtml(providerLabel(x.provider))+'</b></td><td class="dim">'+escapeHtml(x.operation)+'</td><td class="dim">'+escapeHtml(x.username||'system')+'</td><td>'+pill(x.success?'ok':'error',x.success?'ok':'bad')+'</td><td class="dim">'+(x.durationMs!=null?x.durationMs+' ms':'—')+'</td><td class="dim">'+(x.tokensEstimate??'—')+'</td><td class="dim">'+(x.costEstimateUsd!=null?'$'+Number(x.costEstimateUsd).toFixed(5):'—')+'</td></tr>').join(''):'<tr class="empty-row"><td colspan="8">No API usage recorded yet.</td></tr>';
+    }catch(e){handleLoadError(e);}
+  }
+  async function loadLoginHistory(){
+    try{const d=await api('/api/admin/login-history?limit=250',{method:'GET'}); const s=d.summary||{}; document.getElementById('loginHistoryStats').innerHTML=statCard(s.logins||0,'Logins today')+statCard(s.signups||0,'Signups today')+statCard(s.failed||0,'Failed logins today')+statCard(s.logouts||0,'Logouts today'); document.getElementById('loginHistoryCount').textContent=(d.rows||[]).length+' shown'; document.getElementById('loginHistoryBody').innerHTML=(d.rows||[]).map(x=>'<tr><td class="dim">'+timeAgo(x.createdAt)+'</td><td>'+pill(x.event,x.event==='failed_login'?'bad':x.event==='login'?'ok':'')+'</td><td class="dim">'+escapeHtml(x.username||'Unknown')+'<div class="mini">'+escapeHtml(x.email||'')+'</div></td><td class="dim">'+escapeHtml(x.identifier||'—')+'</td><td class="dim">'+escapeHtml(x.ipAddress||'—')+'</td><td class="dim" style="max-width:340px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+escapeHtml(x.userAgent||'—')+'</td></tr>').join('')||'<tr class="empty-row"><td colspan="6">No authentication events recorded yet.</td></tr>'; }catch(e){handleLoadError(e);}
+  }
+  document.getElementById('apiProviderFilter')?.addEventListener('change',loadApiUsage); document.getElementById('apiUsageRefresh')?.addEventListener('click',loadApiUsage); document.getElementById('loginHistoryRefresh')?.addEventListener('click',loadLoginHistory);
+
+  /* ---------------- Performance ---------------- */
+  async function loadPerformance(){
+    const grid = document.getElementById('perfStatGrid');
+    grid.innerHTML = '<div class="stat"><div class="lbl">Loading…</div></div>';
+    try {
+      const d = await api('/api/admin/performance', { method:'GET' });
+      const t = d.totals;
+      grid.innerHTML =
+        statCard(t.total, 'Total audit runs') +
+        statCard(t.successRate + '%', 'Success rate', t.completed + ' completed · <i>' + t.failed + ' failed</i>') +
+        statCard(t.avgScore != null ? t.avgScore : '—', 'Average audit score') +
+        statCard(t.avgDurationSeconds != null ? t.avgDurationSeconds + 's' : '—', 'Average audit duration') +
+        statCard(t.running, 'Currently running') +
+        statCard(d.engineStatus === 'healthy' ? '● OK' : '○ down', 'Python engine', escapeHtml(d.engineUrl));
+      const maxC = Math.max(1, ...d.daily.map(x => x.c));
+      document.getElementById('perfBars').innerHTML = d.daily.length ? d.daily.map(row =>
+        '<div class="bar-row"><div class="bl">' + row.day + '</div><div class="bt"><div class="bf" style="width:' + Math.round((row.c / maxC) * 100) + '%"></div></div><div class="bn">' + row.c + '</div></div>'
+      ).join('') : '<div style="color:var(--faint); font-size:12.5px;">No audits in the last 14 days.</div>';
+      document.getElementById('topUsersBody').innerHTML = d.topUsers.length ? d.topUsers.map(u =>
+        '<tr><td>' + escapeHtml(u.username) + '</td><td class="dim">' + u.auditCount + '</td></tr>'
+      ).join('') : '<tr class="empty-row"><td colspan="2">No audits yet.</td></tr>';
+    } catch(err){ handleLoadError(err); }
+  }
+
+  /* ---------------- Admin audit log ---------------- */
+  document.getElementById('auditlogMore').addEventListener('click', () => loadAuditLog(false));
+  async function loadAuditLog(reset){
+    const body = document.getElementById('auditlogBody');
+    if (reset) body.innerHTML = '<tr class="empty-row"><td colspan="5">Loading…</td></tr>';
+    try {
+      const d = await api('/api/admin/audit-log?limit=' + PAGE + '&offset=' + offsets.auditlog, { method:'GET' });
+      document.getElementById('auditlog-count').innerHTML = 'ADMIN AUDIT LOG <b>' + d.total + '</b> entries';
+      const rows = d.entries.map(l =>
+        '<tr><td style="font-family:var(--mono); font-size:12px;">' + escapeHtml(l.action) + '</td>' +
+        '<td class="dim">' + escapeHtml([l.targetType, l.targetId].filter(Boolean).join(' · ') || '—') + '</td>' +
+        '<td class="dim">' + escapeHtml(l.adminUsername || '—') + '</td>' +
+        '<td class="dim" style="font-size:11.5px;">' + escapeHtml(JSON.stringify(l.metadata || {})) + '</td>' +
+        '<td class="dim">' + timeAgo(l.createdAt) + '</td></tr>'
+      ).join('');
+      if (reset) body.innerHTML = rows || '<tr class="empty-row"><td colspan="5">No admin actions logged yet.</td></tr>';
+      else body.insertAdjacentHTML('beforeend', rows);
+      offsets.auditlog += d.entries.length;
+      document.getElementById('auditlogMore').style.display = offsets.auditlog >= d.total ? 'none' : 'inline-block';
+    } catch(err){ if (reset) body.innerHTML = '<tr class="empty-row"><td colspan="5">' + escapeHtml(err.message) + '</td></tr>'; }
+  }
+
+  function handleLoadError(err, loadingId){
+    if (loadingId) document.getElementById(loadingId).textContent = 'Could not load: ' + err.message;
+    else toast(err.message, true);
+  }
+
+  /* ---------------- Modal ---------------- */
+  function openModal(){ document.getElementById('modalOverlay').classList.add('active'); }
+  function closeModal(){ document.getElementById('modalOverlay').classList.remove('active'); }
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target.id === 'modalOverlay') closeModal(); });
+
+  /* ---------------- Boot ---------------- */
+  (async function boot(){
+    const a = getAuth();
+    if (!a.token) return;
+    try {
+      const d = await api('/api/auth/me', { method:'GET' });
+      if (d.user.role !== 'admin') { clearAuth(); return; }
+      enterApp(d.user);
+    } catch(e){ clearAuth(); }
+  })();
+})();
+</script>
+</body>
+</html>

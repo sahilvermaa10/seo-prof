@@ -1,0 +1,226 @@
+
+/* SEO Agent — AskSEO v3.4-inspired workspace layer
+   Original implementation: familiar SaaS information hierarchy,
+   evidence-first states, keyboard navigation and accessible auth. */
+
+:root{
+  --ask-blue:#2563eb;
+  --ask-blue-2:#1d4ed8;
+  --ask-bg:#f5f8fc;
+  --ask-card:#fff;
+  --ask-border:#dce5f0;
+  --ask-text:#1e2d42;
+  --ask-muted:#718198;
+  --ask-sidebar:#0b1728;
+  --ask-sidebar-2:#10213a;
+  --ask-lava:#e11d48;
+  --ask-shadow:0 14px 38px rgba(22,47,80,.08);
+}
+html[data-theme="dark"]{
+  --ask-bg:#08111f;
+  --ask-card:#101b2d;
+  --ask-border:#263751;
+  --ask-text:#edf4ff;
+  --ask-muted:#98aac1;
+  --ask-sidebar:#050c16;
+  --ask-sidebar-2:#0b1728;
+}
+body{background:var(--ask-bg)!important;color:var(--ask-text)!important}
+
+/* ----- AskSEO-like app shell ----- */
+.sidebar{
+  width:248px!important;
+  background:linear-gradient(180deg,var(--ask-sidebar),#0d1a2e)!important;
+  border-right:1px solid rgba(148,163,184,.12)!important;
+  padding:18px 10px!important;
+}
+.brand{padding:8px 12px 20px!important;margin-bottom:8px!important;border-bottom:1px solid rgba(148,163,184,.12)!important}
+.brand-icon{
+  width:38px!important;height:38px!important;border-radius:11px!important;
+  background:linear-gradient(135deg,#2563eb,#4f46e5)!important;
+  box-shadow:0 8px 24px rgba(37,99,235,.25)!important;
+}
+.brand-name{font-size:16px!important;color:#fff!important}
+.brand-subtitle{font-size:10.5px!important;color:#8ea1bb!important}
+.nav-title{
+  padding:12px 12px 6px!important;font-size:9.5px!important;
+  letter-spacing:.11em!important;color:#6f8199!important;
+}
+.nav{gap:3px!important}
+.nav-item{
+  min-height:40px!important;padding:9px 12px!important;border-radius:9px!important;
+  color:#aebdd0!important;font-weight:650!important;font-size:13px!important;
+  border:1px solid transparent!important;transition:.15s ease!important;
+}
+.nav-item:hover{background:rgba(255,255,255,.055)!important;color:#fff!important;transform:none!important}
+.nav-item.active{
+  background:linear-gradient(135deg,#2878df,#1d5fc1)!important;
+  border-color:#3984e5!important;color:#fff!important;
+  box-shadow:0 8px 20px rgba(15,76,160,.22)!important;
+}
+.nav-item.active::before{width:4px!important;height:18px!important;left:0!important;background:#72c8ff!important}
+.sidebar-bottom{
+  background:rgba(255,255,255,.045)!important;border:1px solid rgba(148,163,184,.12)!important;
+  border-radius:10px!important;padding:12px!important;color:#9eb0c6!important;
+}
+
+/* ----- AskSEO-like topbar ----- */
+.header{
+  min-height:76px!important;padding:14px 28px!important;
+  background:rgba(245,248,252,.94)!important;
+  border-bottom:1px solid var(--ask-border)!important;
+  backdrop-filter:blur(16px)!important;
+}
+html[data-theme="dark"] .header{background:rgba(8,17,31,.94)!important}
+.header-actions{gap:9px!important}
+.header-actions .badge{
+  min-width:auto!important;min-height:38px!important;padding:0 13px!important;
+  border-radius:9px!important;font-size:11px!important;
+}
+.logout-button{
+  min-height:38px!important;padding:0 12px!important;border-radius:9px!important;
+}
+.ask-top-search{
+  margin-left:auto;margin-right:10px;width:min(360px,30vw);height:40px;
+  display:flex;align-items:center;gap:8px;padding:0 11px;
+  background:var(--ask-card);border:1px solid var(--ask-border);border-radius:9px;
+  box-shadow:0 3px 12px rgba(22,47,80,.035);
+}
+.ask-top-search:focus-within{border-color:#78a9e8;box-shadow:0 0 0 3px rgba(37,99,235,.09)}
+.ask-top-search input{border:0!important;outline:0!important;background:transparent!important;
+  min-height:36px!important;padding:0!important;box-shadow:none!important;flex:1;color:var(--ask-text)!important}
+.ask-search-icon{color:#718198;font-size:15px}
+.ask-kbd{font-size:10px;color:#93a1b4;border:1px solid var(--ask-border);border-radius:5px;padding:2px 5px}
+.ask-user-chip{display:flex;align-items:center;gap:8px;padding:4px 7px 4px 4px;border:1px solid var(--ask-border);
+  background:var(--ask-card);border-radius:10px;font-size:12px;font-weight:700}
+.ask-avatar{width:29px;height:29px;border-radius:8px;display:grid;place-items:center;
+  background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;font-size:12px}
+
+/* ----- Main surfaces ----- */
+.app-view{max-width:1500px!important;margin:0 auto!important}
+.scanner,.section-url-bar,.section-toolbar,.panel,.card,.metric,.workspace-card,.insight-card,.audit-score-card,.gap-card{
+  box-shadow:var(--ask-shadow)!important;
+}
+.scanner.section-scanner,.section-url-bar,.section-toolbar{border-radius:13px!important}
+.button,.auth-primary{
+  background:linear-gradient(135deg,#2563eb,#1d4ed8)!important;
+  border-color:#1d4ed8!important;
+  box-shadow:0 7px 18px rgba(37,99,235,.17)!important;
+}
+.button:hover,.auth-primary:hover{filter:brightness(1.06)!important}
+.card,.metric,.workspace-card,.panel{border-radius:13px!important}
+
+/* ----- Command palette ----- */
+.ask-palette-backdrop{position:fixed;inset:0;z-index:100000;background:rgba(3,9,18,.58);backdrop-filter:blur(4px);display:none;align-items:flex-start;justify-content:center;padding-top:12vh}
+.ask-palette-backdrop.open{display:flex}
+.ask-palette{width:min(680px,calc(100vw - 28px));background:var(--ask-card);border:1px solid var(--ask-border);
+  border-radius:15px;box-shadow:0 28px 80px rgba(0,0,0,.25);overflow:hidden}
+.ask-palette-head{display:flex;align-items:center;gap:9px;padding:14px 16px;border-bottom:1px solid var(--ask-border)}
+.ask-palette-head input{flex:1;border:0!important;outline:0!important;background:transparent!important;color:var(--ask-text)!important;min-height:34px!important;padding:0!important;box-shadow:none!important}
+.ask-palette-list{max-height:420px;overflow:auto;padding:7px}
+.ask-palette-item{display:flex;align-items:center;justify-content:space-between;padding:10px 11px;border-radius:9px;cursor:pointer;color:var(--ask-text)}
+.ask-palette-item:hover,.ask-palette-item.selected{background:#eef5ff}
+html[data-theme="dark"] .ask-palette-item:hover,html[data-theme="dark"] .ask-palette-item.selected{background:#172841}
+.ask-palette-item small{color:var(--ask-muted)}
+.ask-palette-foot{padding:9px 14px;border-top:1px solid var(--ask-border);font-size:10px;color:var(--ask-muted)}
+
+/* ----- AI assistant ----- */
+#askAiFab{position:fixed;right:22px;bottom:22px;z-index:9000;width:54px;height:54px;border:0;border-radius:50%;
+  background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;font-size:22px;cursor:pointer;
+  box-shadow:0 14px 32px rgba(37,99,235,.32)}
+#askAiPanel{position:fixed;right:22px;bottom:88px;width:min(390px,calc(100vw - 28px));height:500px;z-index:8999;
+  display:none;flex-direction:column;background:var(--ask-card);border:1px solid var(--ask-border);
+  border-radius:15px;box-shadow:0 24px 70px rgba(0,0,0,.2);overflow:hidden}
+#askAiPanel.open{display:flex}
+.ask-ai-head{padding:13px 15px;border-bottom:1px solid var(--ask-border);display:flex;justify-content:space-between;align-items:center}
+.ask-ai-head strong{font-size:13px}.ask-ai-head span{font-size:10px;color:#22a06b;margin-left:7px}
+.ask-ai-msgs{flex:1;overflow:auto;padding:12px}
+.ask-ai-msg{padding:9px 11px;border-radius:10px;margin-bottom:8px;font-size:12px;line-height:1.5;white-space:pre-wrap}
+.ask-ai-msg.user{background:#eaf2ff;margin-left:25px}.ask-ai-msg.bot{background:#f3f6fa;margin-right:18px}
+html[data-theme="dark"] .ask-ai-msg.user{background:#17345e}
+html[data-theme="dark"] .ask-ai-msg.bot{background:#172438}
+.ask-ai-form{display:flex;gap:7px;padding:10px;border-top:1px solid var(--ask-border)}
+.ask-ai-form input{flex:1;min-width:0!important;min-height:40px!important}
+.ask-ai-form button{min-width:62px}
+
+/* ----- Login: AskSEO lamp interaction ----- */
+.askseo-auth{
+  background:radial-gradient(ellipse 55% 45% at 50% 18%,rgba(37,99,235,.12),transparent 65%),#08111f!important;
+  overflow:hidden!important;display:flex!important;align-items:center!important;justify-content:center!important;
+}
+.askseo-auth .auth-atmosphere{position:absolute;inset:0;background:
+  radial-gradient(circle at 18% 25%,rgba(37,99,235,.12),transparent 22%),
+  radial-gradient(circle at 82% 75%,rgba(79,70,229,.10),transparent 24%);pointer-events:none}
+.askseo-auth-card{
+  width:min(430px,calc(100vw - 28px))!important;padding:23px!important;z-index:4!important;
+  border-radius:14px!important;background:rgba(255,255,255,.98)!important;
+  box-shadow:0 26px 90px rgba(0,0,0,.34)!important;
+  transform:translateY(0);opacity:1;pointer-events:auto;visibility:visible!important;transition:.45s ease;
+}
+.askseo-auth.revealed .askseo-auth-card{transform:translateY(0);opacity:1;pointer-events:auto;visibility:visible!important}
+.askseo-auth .auth-brand{display:flex;align-items:center;gap:10px;margin-bottom:15px}
+.askseo-auth .auth-logo{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;
+  color:#fff;background:linear-gradient(135deg,#2563eb,#4f46e5);font-size:20px}
+.askseo-auth .auth-brand strong{display:block;font-size:16px;color:#17253a}
+.askseo-auth .auth-brand span{display:block;font-size:10px;color:#74849a;margin-top:2px}
+.askseo-auth .auth-tabs{display:flex;gap:4px;padding:4px;background:#f1f5f9;border-radius:9px;margin-bottom:17px}
+.askseo-auth .auth-tab{flex:1;border:0;background:transparent;border-radius:7px;padding:8px 6px;font-size:11px;font-weight:750;color:#6c7b90;cursor:pointer}
+.askseo-auth .auth-tab.active{background:#fff;color:#2563eb;box-shadow:0 2px 8px rgba(25,45,70,.09)}
+.askseo-auth .auth-form h1{font-size:20px;color:#1c2c42;margin-bottom:4px}
+.askseo-auth .auth-form p{font-size:11.5px;color:#738198;margin-bottom:14px;line-height:1.5}
+.askseo-auth .auth-form label{display:block;font-size:10px;font-weight:800;color:#64748b;margin:10px 0 6px}
+.askseo-auth .auth-form input{width:100%;height:43px;border:1px solid #d7e1ec;border-radius:8px;padding:0 11px;background:#fbfdff;color:#23344b;outline:0}
+.askseo-auth .auth-form input:focus{border-color:#4f8fe8;box-shadow:0 0 0 3px rgba(37,99,235,.09)}
+.askseo-auth .auth-primary{width:100%;height:43px;border:0;border-radius:8px;color:#fff;font-weight:800;margin-top:13px;cursor:pointer}
+.askseo-auth .tier-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:15px}
+.askseo-auth .tier-strip>div{background:#f7f9fc;border:1px solid #e3e9f1;border-radius:8px;padding:7px;text-align:center}
+.askseo-auth .tier-strip b{display:block;font-size:10px;color:#30435b}.askseo-auth .tier-strip span{display:block;font-size:9px;color:#8a98aa;margin-top:2px}
+.askseo-auth .tier-note{margin-top:10px;color:#8795a8;font-size:9.5px;line-height:1.4}
+.askseo-auth .auth-error{display:none;margin-top:9px;padding:8px 10px;border-radius:7px;background:#fff1f2;border:1px solid #fecdd3;color:#be123c;font-size:11px}
+.askseo-auth .auth-error.show{display:block}
+
+/* Lamp */
+.lamp-scene{position:absolute;inset:0;z-index:3;pointer-events:none}
+.askseo-auth:not(.revealed) .lamp-scene{pointer-events:auto}
+.ceiling-hook{position:absolute;top:0;left:50%;width:2px;height:30px;background:#475569}
+.cord-wrap{position:absolute;top:28px;left:50%;height:145px;width:80px;transform:translateX(55px)}
+.cord{position:absolute;top:0;left:50%;width:2px;height:72px;background:#94a3b8;transform:translateX(-50%)}
+.pull-handle{position:absolute;top:67px;left:50%;width:42px;height:58px;transform:translateX(-50%);border:0;background:transparent;cursor:pointer}
+.handle-knob{display:block;width:17px;height:22px;margin:0 auto;border-radius:50% 50% 45% 45%;background:#d7dee8;box-shadow:0 3px 8px rgba(0,0,0,.22)}
+.handle-hint{display:block;color:#94a3b8;font-size:8px;margin-top:6px;text-transform:uppercase;letter-spacing:.12em}
+.lamp{position:absolute;top:35px;left:50%;transform:translateX(-50%);width:180px;text-align:center}
+.lamp-shade{position:relative;width:180px;height:82px;margin:auto}
+.shade-top{position:absolute;left:65px;top:0;width:50px;height:14px;background:#cbd5e1;border-radius:8px 8px 3px 3px}
+.shade-body{position:absolute;left:17px;top:9px;width:146px;height:65px;background:linear-gradient(180deg,#cbd5e1,#94a3b8);clip-path:polygon(28% 0,72% 0,100% 100%,0 100%)}
+.shade-rim{position:absolute;left:0;right:0;bottom:0;height:9px;border-radius:50%;background:#64748b}
+.bulb{position:absolute;left:50%;top:65px;transform:translateX(-50%);width:27px;height:34px;border-radius:50% 50% 44% 44%;background:#334155;transition:.35s}
+.askseo-auth.lit .bulb{background:#fff8b8;box-shadow:0 0 28px 10px rgba(255,236,128,.72)}
+.light-cone{position:absolute;left:50%;top:92px;transform:translateX(-50%);width:330px;height:310px;
+  background:linear-gradient(180deg,rgba(255,231,120,.14),transparent 70%);clip-path:polygon(35% 0,65% 0,100% 100%,0 100%);opacity:0;transition:.5s}
+.askseo-auth.lit .light-cone{opacity:1}
+.glow-floor{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);width:420px;height:90px;border-radius:50%;background:rgba(255,226,110,.10);filter:blur(25px);opacity:0}
+.askseo-auth.lit .glow-floor{opacity:1}
+.lamp-prompt{position:absolute;top:205px;left:0;right:0;text-align:center;color:#a8b8cb;font-size:11px;letter-spacing:.03em;transition:.25s}
+.askseo-auth.revealed .lamp-prompt{opacity:0}
+.askseo-auth:not(.revealed) .askseo-auth-card{visibility:visible!important;opacity:1!important;pointer-events:auto!important}
+.askseo-auth.lit .lamp{filter:drop-shadow(0 0 16px rgba(255,230,130,.15))}
+
+/* ----- Mobile ----- */
+@media(max-width:1050px){.ask-top-search{width:230px}}
+@media(max-width:900px){.sidebar{display:none!important}.main{margin-left:0!important;width:100%!important}.ask-top-search{width:min(260px,45vw)}}
+@media(max-width:650px){
+  .header{padding:11px 14px!important;flex-wrap:wrap;gap:7px}
+  .ask-top-search{order:3;width:100%;margin:2px 0 0}.header-actions .badge,.logout-button{display:none!important}
+  .ask-user-chip span{display:none}.ask-user-chip{padding:4px}
+  .lamp{transform:translateX(-50%) scale(.82);top:42px}.cord-wrap{transform:translateX(40px);top:28px}
+  .lamp-prompt{top:180px}.askseo-auth-card{margin-top:80px}
+}
+
+/* PostgreSQL auth controller: deterministic 3-tab layout and authenticated shell visibility */
+.auth-tabs{grid-template-columns:repeat(3,1fr)!important}.app-shell.authenticated{display:block!important}
+
+/* V6 auth transition: preserve the AskSEO lamp/pull gate, but make the
+   authenticated workspace unambiguously visible after a successful login. */
+body.agent-authenticated .auth-screen { display:none !important; pointer-events:none !important; visibility:hidden !important; }
+body.agent-authenticated .app-shell { display:block !important; visibility:visible !important; opacity:1 !important; }
+.auth-screen.auth-complete { display:none !important; }

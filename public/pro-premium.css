@@ -1,0 +1,1091 @@
+:root{--pp-blue:#2563eb;--pp-purple:#7c3aed;--pp-cyan:#0891b2;--pp-green:#16a34a;--pp-amber:#d97706;--pp-red:#dc2626;--pp-ink:#17233b;--pp-muted:#64748b;--pp-border:#dbe4ef}
+.pp-input-shell{background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(246,249,253,.98))!important;border:1px solid #d8e3ef!important;box-shadow:0 16px 45px rgba(31,61,92,.09)!important;border-radius:20px!important;padding:24px!important}
+.pp-hero{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;margin-bottom:18px;padding:24px 26px;border-radius:20px;background:linear-gradient(135deg,#0f1d35 0%,#183b72 58%,#274ca6 100%);color:#fff;box-shadow:0 18px 42px rgba(26,64,124,.22);overflow:hidden;position:relative}.pp-hero:after{content:"";position:absolute;width:260px;height:260px;right:-90px;top:-130px;border-radius:50%;background:radial-gradient(circle,rgba(103,232,249,.24),transparent 68%);pointer-events:none}.pp-eyebrow{display:block;font-size:10px;font-weight:900;letter-spacing:.16em;color:#93c5fd;margin-bottom:8px}.pp-hero h2{margin:0 0 8px;font-size:24px;letter-spacing:-.03em;max-width:780px;word-break:break-word}.pp-hero p{margin:0;line-height:1.6;color:#cbdaf0;max-width:820px}.pp-source{min-width:190px;text-align:right;position:relative;z-index:1}.pp-source small{display:block;color:#b8c8df;margin-top:8px;line-height:1.45}.pp-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 16px}.pp-kpi{padding:17px 18px;border-radius:16px;background:#fff;border:1px solid var(--pp-border);box-shadow:0 9px 28px rgba(29,56,91,.07);position:relative;overflow:hidden}.pp-kpi:before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--pp-blue),var(--pp-purple))}.pp-kpi-label{text-transform:uppercase;font-size:10px;font-weight:900;letter-spacing:.08em;color:#718096}.pp-kpi-value{font-size:27px;font-weight:900;color:var(--pp-ink);letter-spacing:-.04em;margin-top:5px}.pp-kpi-sub{font-size:11px;color:var(--pp-muted);margin-top:4px;line-height:1.4}.pp-grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:16px}.pp-card{background:#fff;border:1px solid var(--pp-border);border-radius:18px;padding:19px;box-shadow:0 10px 30px rgba(31,61,92,.065);min-width:0}.pp-card h3{margin:0;color:var(--pp-ink);font-size:17px}.pp-card-head{margin-bottom:10px}.pp-section-title{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#52647d;margin-bottom:14px}.pp-chart-flex{display:flex;align-items:center;gap:20px;flex-wrap:wrap}.pp-ring{width:130px;height:130px;border-radius:50%;background:conic-gradient(var(--pp-blue) 0 var(--pp),#e8eef6 var(--pp) 360deg);display:grid;place-items:center;position:relative;flex:0 0 auto}.pp-ring:after{content:"";position:absolute;inset:10px;background:#fff;border-radius:50%}.pp-ring>div,.pp-ring>small{position:relative;z-index:2;text-align:center}.pp-ring>div{display:flex;align-items:baseline;justify-content:center;gap:2px}.pp-ring strong{font-size:30px;color:var(--pp-ink)}.pp-ring span{font-size:10px;color:var(--pp-muted)}.pp-ring small{display:block;margin-top:-1px;color:var(--pp-muted);font-weight:800}.pp-donut{width:130px;height:130px;border-radius:50%;display:grid;place-items:center;position:relative;flex:0 0 auto}.pp-donut:after{content:"";position:absolute;inset:17px;background:#fff;border-radius:50%}.pp-donut div{position:relative;z-index:2;text-align:center}.pp-donut b{display:block;font-size:25px;color:var(--pp-ink)}.pp-donut span{font-size:10px;color:var(--pp-muted)}.pp-legend{font-size:12px;line-height:2;color:#53657b}.pp-legend b{margin-left:8px;color:var(--pp-ink)}.pp-explain{font-size:12px;line-height:1.65;color:#64748b;margin:12px 0 0}.pp-callout{padding:13px 15px;border-radius:12px;background:linear-gradient(135deg,#eef5ff,#f5f2ff);border:1px solid #d8e5f7;color:#304663;font-size:13px;line-height:1.6}.pp-metric-notes{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.pp-metric-notes span{padding:7px 9px;border-radius:9px;background:#f5f8fb;color:#66788f;font-size:11px}.pp-bar-row{margin:11px 0}.pp-bar-label{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#596c84;margin-bottom:6px}.pp-bar-label b{color:#26384f}.pp-bar-track{height:9px;background:#edf2f7;border-radius:999px;overflow:hidden}.pp-bar-fill{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#2563eb,#60a5fa)}.pp-bar-fill.pp-purple{background:linear-gradient(90deg,#7c3aed,#a78bfa)}.pp-bar-fill.pp-cyan{background:linear-gradient(90deg,#0891b2,#67e8f9)}.pp-bar-fill.pp-green{background:linear-gradient(90deg,#16a34a,#86efac)}.pp-bar-fill.pp-red{background:linear-gradient(90deg,#dc2626,#fb7185)}.pp-bar-fill.pp-amber{background:linear-gradient(90deg,#d97706,#fbbf24)}.pp-steps,.pp-bullets{margin:0;padding-left:20px;color:#4f627a;font-size:12px;line-height:1.8}.pp-steps li,.pp-bullets li{margin:3px 0}.pp-action{border:1px solid #e1e8f0;border-radius:13px;margin:9px 0;background:#fbfdff;overflow:hidden}.pp-action summary{cursor:pointer;list-style:none;padding:13px 14px;display:flex;align-items:center;gap:10px}.pp-action summary::-webkit-details-marker{display:none}.pp-action-main{display:flex;justify-content:space-between;gap:10px;align-items:center;flex:1;min-width:0;overflow:hidden}.pp-action-main>b{font-size:13px;color:#2d4059;flex:1;min-width:0;overflow-wrap:anywhere;word-break:break-word;white-space:normal}.pp-action-main>span{flex:0 0 auto;min-width:56px;text-align:right}.pp-pill{display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;font-size:9px;font-weight:900;letter-spacing:.05em;background:#edf2f7;color:#64748b;white-space:nowrap!important}.pp-action-no{width:27px;height:27px;border-radius:8px;background:#eaf2ff;color:#2563eb;display:grid;place-items:center;font-weight:900;font-size:11px;flex:0 0 auto}.pp-action-body{padding:0 14px 14px 51px;color:#5c6f86;font-size:12px;line-height:1.6}.pp-two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.pp-two p{margin:5px 0 0}.pp-check{display:inline-flex;gap:7px;align-items:center;margin-top:10px;font-size:11px;color:#65778d}.pp-pill{display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;font-size:9px;font-weight:900;letter-spacing:.05em;background:#edf2f7;color:#64748b;white-space:nowrap}.pp-good{background:#eaf8ef;color:#15803d}.pp-warn{background:#fff5df;color:#a16207}.pp-bad{background:#feecec;color:#b91c1c}.pp-info{background:#edf4ff;color:#2563eb}.pp-raw{margin-top:14px;border:1px dashed #cdd9e6;border-radius:14px;background:#f8fafc}.pp-raw summary{cursor:pointer;padding:12px 14px;font-size:12px;font-weight:800;color:#51657d}.pp-json-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;padding:0 14px 14px}.pp-json-field{padding:10px;border:1px solid #e1e8f0;border-radius:10px;background:#fff;overflow-wrap:anywhere}.pp-json-key{text-transform:capitalize;font-size:10px;font-weight:900;color:#6a7c92;margin-bottom:5px}.pp-value{font-size:12px;color:#2d4058;line-height:1.5}.pp-json-list{display:grid;gap:7px}.pp-json-item{display:flex;gap:8px;padding:8px;border:1px solid #e4eaf1;border-radius:9px;background:#fff}.pp-index{font-size:10px;font-weight:900;color:#2563eb}.pp-muted{color:#8998aa;font-size:11px}.pp-rank-card{padding:16px}.pp-rank-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:7px}.pp-rank-head strong{font-size:25px;color:#2563eb}.pp-rank-head span{font-size:11px;color:#687b92}.pp-chart{width:100%;height:150px;margin:4px 0}.pp-axis{stroke:#dbe4ef;stroke-width:1}.pp-line{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.pp-line.pp-blue{stroke:#2563eb}.pp-line.pp-purple{stroke:#7c3aed}.pp-dot.pp-blue{fill:#2563eb}.pp-dot.pp-purple{fill:#7c3aed}.pp-table-wrap{overflow:auto}.pp-table{width:100%;border-collapse:separate;border-spacing:0;min-width:700px}.pp-table th{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#718198;background:#f5f8fb;padding:11px;text-align:left;border-bottom:1px solid #dce5ee}.pp-table td{font-size:12px;color:#42556d;padding:12px 11px;border-bottom:1px solid #e8eef4;vertical-align:top;line-height:1.5}.pp-page-url{font-size:11px;color:#718198;word-break:break-all;margin:4px 0 10px}.pp-ai{background:linear-gradient(135deg,#f5f3ff,#eff6ff);border-color:#d9ddf8}.pp-ai-badge{display:inline-flex;padding:5px 8px;border-radius:7px;background:#e9e4ff;color:#6d28d9;font-size:9px;font-weight:900;letter-spacing:.08em;margin-bottom:8px}.pp-ai h3{font-size:20px;line-height:1.35}.pp-ai-card{min-height:150px}.pp-ai-detail b{font-size:11px;color:#52647c}.pp-ai-detail p{font-size:12px;color:#65788f;line-height:1.6;margin:4px 0 12px}.pp-loading,.pp-error,.pp-empty{padding:24px;border-radius:14px;border:1px dashed #cbd7e5;background:#f8fafc;color:#61748a;font-size:13px;line-height:1.6}.pp-error{border-color:#f1b9b9;background:#fff6f6;color:#9f2f2f}.pp-empty{text-align:center}.pp-rank-card .pp-explain{min-height:38px}
+html[data-theme="dark"] .pp-input-shell,html[data-theme="dark"] .pp-card,html[data-theme="dark"] .pp-kpi{background:#111c2d!important;border-color:#293b55!important;color:#dbe7f6}html[data-theme="dark"] .pp-hero{background:linear-gradient(135deg,#0b1425,#152f58,#203b80)}html[data-theme="dark"] .pp-kpi-value,html[data-theme="dark"] .pp-card h3,html[data-theme="dark"] .pp-ring strong,html[data-theme="dark"] .pp-donut b{color:#e5edf8}html[data-theme="dark"] .pp-section-title,html[data-theme="dark"] .pp-bar-label,html[data-theme="dark"] .pp-explain,html[data-theme="dark"] .pp-legend,html[data-theme="dark"] .pp-steps,html[data-theme="dark"] .pp-bullets,html[data-theme="dark"] .pp-action-body,html[data-theme="dark"] .pp-ai-detail p{color:#9eb0c8}html[data-theme="dark"] .pp-callout,html[data-theme="dark"] .pp-action,html[data-theme="dark"] .pp-raw,html[data-theme="dark"] .pp-json-field,html[data-theme="dark"] .pp-json-item{background:#17243a;border-color:#2c405c;color:#c9d7e8}html[data-theme="dark"] .pp-ring:after,html[data-theme="dark"] .pp-donut:after{background:#111c2d}html[data-theme="dark"] .pp-table th{background:#17243a;color:#9eb0c8}html[data-theme="dark"] .pp-table td{color:#c9d7e8;border-color:#283b55}
+@media(max-width:900px){.pp-grid-2{grid-template-columns:1fr}.pp-hero{flex-direction:column}.pp-source{text-align:left}.pp-json-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.pp-two{grid-template-columns:1fr}.pp-input-shell{padding:15px!important}.pp-hero{padding:18px}.pp-hero h2{font-size:19px}}
+
+
+/* ============================================================
+   V8 OVERFLOW & LAYOUT FIX — all boxes horizontal, text contained
+   ============================================================ */
+
+/* 1. Universal box-sizing + overflow guard on every card/widget */
+.pp-card,.pp-kpi,.pp-action,.pp-json-field,.pp-json-item,
+.pp-two,.pp-two>div,.pp-action-body,.pp-callout,.pp-explain{
+  min-width:0;box-sizing:border-box
+}
+
+/* 2. Every text node inside cards must wrap, never overflow */
+.pp-card,.pp-kpi,.pp-action-body,.pp-two,.pp-callout,
+.pp-explain,.pp-value,.pp-json-field,.pp-ai-detail,
+.pp-section-title,.pp-bar-label b,.pp-bar-label span{
+  overflow-wrap:anywhere;word-break:break-word;white-space:normal
+}
+
+/* 3. KPI row — force 4 equal horizontal columns, text wraps inside */
+.pp-kpis{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:12px;margin:0 0 16px;align-items:stretch
+}
+.pp-kpi{
+  min-height:118px;display:flex;flex-direction:column;
+  justify-content:center;padding:17px 18px;
+  overflow:hidden;word-break:break-word
+}
+.pp-kpi-label,.pp-kpi-value,.pp-kpi-sub{
+  white-space:normal;overflow-wrap:anywhere;word-break:break-word
+}
+.pp-kpi-value{line-height:1.1;font-size:clamp(18px,2.2vw,27px)}
+
+/* 4. Two-column card grid — aligned horizontally */
+.pp-grid-2{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:16px;margin-bottom:16px;align-items:start
+}
+.pp-grid-2>.pp-card{min-height:210px;overflow:hidden}
+
+/* 5. THE ROOT CAUSE FIX:
+      .pp-action-main is flex row with justify-content:space-between.
+      The pill (priority badge) was getting squeezed to ~0 width
+      because the <b> title took all space, forcing pill text to
+      render one character per line vertically.
+      Fix: give pill a fixed min-width and stop it from shrinking. */
+.pp-action-main{
+  display:flex;justify-content:space-between;
+  gap:10px;align-items:center;flex:1;min-width:0
+}
+.pp-action-main>b{
+  flex:1;min-width:0;
+  overflow-wrap:anywhere;word-break:break-word;white-space:normal
+}
+.pp-action-main>span{
+  flex:0 0 auto;            /* never shrink the pill column */
+  min-width:60px;           /* guarantee space for "MEDIUM" etc. */
+  text-align:right
+}
+.pp-action-main .pp-pill{
+  white-space:nowrap!important;  /* pill text always stays on one line */
+  display:inline-flex!important
+}
+
+/* 6. The "Interpretation" / callout card — text must wrap horizontally */
+.pp-callout{
+  white-space:normal!important;
+  overflow-wrap:anywhere;word-break:break-word;
+  display:block;width:100%;box-sizing:border-box
+}
+
+/* 7. pp-two grid inside action bodies */
+.pp-two{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:14px
+}
+.pp-two>div{min-width:0;overflow:hidden;word-break:break-word}
+.pp-two p,.pp-two b{white-space:normal;overflow-wrap:anywhere;word-break:break-word}
+
+/* 8. Action summary row */
+.pp-action summary{min-height:52px;align-items:flex-start}
+
+/* 9. AI detail cards */
+.pp-ai-detail,.pp-ai-detail p,.pp-ai-detail b,
+.pp-ai-detail ol,.pp-ai-detail li{
+  overflow-wrap:anywhere;word-break:break-word;
+  white-space:normal;max-width:100%
+}
+.pp-ai-card{overflow:hidden}
+
+/* 10. Tables */
+.pp-table-wrap{border-radius:12px}
+.pp-table td,.pp-table th{
+  white-space:normal;overflow-wrap:anywhere;word-break:break-word
+}
+
+/* 11. Hero */
+.pp-hero{min-height:132px}
+
+/* 12. Legacy audit grid */
+#view-audit .audit-summary{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+#view-audit .audit-score-card{min-width:0!important;overflow:hidden!important}
+#view-audit .audit-results,#auditResults{min-width:0}
+@media(max-width:1050px){#view-audit .audit-summary{grid-template-columns:1fr!important}}
+
+/* 13. Responsive breakpoints */
+@media(max-width:900px){
+  .pp-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .pp-grid-2{grid-template-columns:1fr!important}
+  .pp-two{grid-template-columns:1fr!important}
+}
+@media(max-width:600px){
+  .pp-kpis{grid-template-columns:1fr!important}
+  .pp-kpi-value{font-size:22px}
+}
+
+/* V8.1 — Evidence & Trust Ledger: premium styling for the "structured evidence JSON" sections */
+.pp-raw{border:1px solid #dbe4ef;background:linear-gradient(180deg,#fbfdff,#f6f9fc)}
+.pp-raw summary{display:flex;align-items:center;gap:8px;font-size:12.5px}
+.pp-raw summary:before{content:"";width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,#16a34a,#2563eb);flex:0 0 auto}
+.pp-raw[open] summary{border-bottom:1px solid #e3eaf2}
+.pp-evidence{padding:16px}
+.pp-evidence-head{padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid #e6edf5}
+.pp-evidence-badge{display:inline-flex;padding:5px 10px;border-radius:7px;background:linear-gradient(135deg,#0f1d35,#274ca6);color:#fff;font-size:9px;font-weight:900;letter-spacing:.12em;margin-bottom:8px}
+.pp-evidence-head p{margin:0;font-size:12px;line-height:1.6;color:#64748b;max-width:640px}
+.pp-evidence-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.pp-evidence-item{padding:12px 13px;border-radius:12px;background:#fff;border:1px solid #e3eaf2;box-shadow:0 6px 18px rgba(31,61,92,.05);min-width:0}
+.pp-evidence-key{display:block;text-transform:uppercase;font-size:9.5px;font-weight:900;letter-spacing:.08em;color:#8296ad;margin-bottom:7px}
+.pp-evidence-score{font-size:22px;font-weight:900;color:var(--pp-ink);letter-spacing:-.03em}
+.pp-evidence-score small{font-size:11px;font-weight:700;color:#96a5ba;margin-left:2px}
+.pp-evidence-link{font-size:11.5px;color:#2563eb;text-decoration:none;font-weight:700;word-break:break-all}
+.pp-evidence-link:hover{text-decoration:underline}
+.pp-evidence-chart-row{display:flex;gap:20px;flex-wrap:wrap;align-items:center;padding:16px;border-radius:14px;background:#fff;border:1px solid #e3eaf2;margin-bottom:14px}
+.pp-evidence-chart-block{display:flex;align-items:center;gap:16px}
+.pp-evidence-card{padding:15px 16px;border-radius:14px;background:#fff;border:1px solid #e3eaf2;margin-bottom:12px}
+.pp-evidence-card:last-child{margin-bottom:0}
+.pp-evidence-metrics .pp-bar-row{margin:9px 0}
+.pp-evidence-more .pp-json-grid{padding:0}
+.pp-json-field{transition:box-shadow .15s,transform .15s}
+.pp-json-field:hover{box-shadow:0 8px 20px rgba(31,61,92,.09);transform:translateY(-1px)}
+.pp-json-key{display:flex;align-items:center;gap:6px}
+.pp-json-ico{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:5px;background:#eaf2ff;color:#2563eb;font-size:9px;font-weight:900;flex:0 0 auto}
+.pp-value-num{font-weight:800;color:var(--pp-ink);font-variant-numeric:tabular-nums}
+@media(max-width:900px){.pp-evidence-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.pp-evidence-strip{grid-template-columns:1fr}.pp-evidence-chart-row{flex-direction:column;align-items:flex-start}}
+html[data-theme="dark"] .pp-raw{background:linear-gradient(180deg,#101a2b,#0e1826)}
+html[data-theme="dark"] .pp-evidence-item,html[data-theme="dark"] .pp-evidence-chart-row,html[data-theme="dark"] .pp-evidence-card{background:#111c2d;border-color:#293b55}
+html[data-theme="dark"] .pp-evidence-head{border-color:#243652}
+html[data-theme="dark"] .pp-evidence-key{color:#7f93ad}
+html[data-theme="dark"] .pp-evidence-score{color:#e5edf8}
+html[data-theme="dark"] .pp-json-ico{background:#1b2c46;color:#8ab4ff}
+
+/* V8.2 — Category summary cards (Content / Accessibility / Indexability / Schema, etc.) */
+.pp-cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.pp-cat-card{padding:15px 16px;border-radius:14px;background:#fff;border:1px solid #e3eaf2;box-shadow:0 6px 18px rgba(31,61,92,.05)}
+.pp-cat-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.pp-cat-head b{flex:1;font-size:13px;color:var(--pp-ink);min-width:0;overflow-wrap:anywhere}
+.pp-cat-ico{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:7px;background:#eaf2ff;color:#2563eb;font-size:11px;flex:0 0 auto}
+.pp-cat-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.pp-cat-stat{text-align:center;padding:8px 2px;border-radius:9px;background:#f7f9fc}
+.pp-cat-stat span{display:block;font-size:16px;font-weight:900;color:var(--pp-ink)}
+.pp-cat-stat small{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:#8798ad;margin-top:2px;white-space:nowrap}
+.pp-cat-stat.pp-cat-good span{color:#16a34a}
+.pp-cat-stat.pp-cat-warn span{color:#d97706}
+.pp-cat-stat.pp-cat-bad span{color:#dc2626}
+/* Compact single-line stat row used for any nested checks/passed/warnings/critical bucket
+   found anywhere in the JSON, so it can never collapse into a squeezed multi-column grid. */
+.pp-stat-row{display:flex;flex-wrap:wrap;gap:7px}
+.pp-stat-chip{display:flex;align-items:baseline;gap:5px;padding:6px 10px;border-radius:9px;background:#f5f8fb;white-space:nowrap}
+.pp-stat-chip b{font-size:13px;color:var(--pp-ink)}
+.pp-stat-chip small{font-size:10px;text-transform:capitalize;color:#7c8ea3}
+.pp-stat-chip.pp-good{background:#eaf8ef}.pp-stat-chip.pp-good b{color:#15803d}
+.pp-stat-chip.pp-warn{background:#fff5df}.pp-stat-chip.pp-warn b{color:#a16207}
+.pp-stat-chip.pp-bad{background:#feecec}.pp-stat-chip.pp-bad b{color:#b91c1c}
+.pp-stat-chip.pp-info{background:#edf4ff}.pp-stat-chip.pp-info b{color:#2563eb}
+@media(max-width:480px){.pp-cat-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+html[data-theme="dark"] .pp-cat-card{background:#111c2d;border-color:#293b55}
+html[data-theme="dark"] .pp-cat-stat,html[data-theme="dark"] .pp-stat-chip{background:#17243a}
+html[data-theme="dark"] .pp-cat-stat span,html[data-theme="dark"] .pp-cat-head b,html[data-theme="dark"] .pp-stat-chip b{color:#e5edf8}
+
+/* V8.3 — Compact field list for nested objects (e.g. individual checks inside a list),
+   replacing the tall one-box-per-field stack with tight, aligned label/value rows. */
+.pp-field-list{display:flex;flex-direction:column}
+.pp-field-row{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:8px 0;border-bottom:1px solid #eef2f7;align-items:baseline}
+.pp-field-row:last-child{border-bottom:none}
+.pp-field-key{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:#7c8ea3;white-space:nowrap}
+.pp-field-val{font-size:12.5px;color:#2d4058;line-height:1.55;overflow-wrap:anywhere;min-width:0}
+.pp-json-item{padding:12px 14px}
+@media(max-width:520px){.pp-field-row{grid-template-columns:1fr;gap:2px}.pp-field-key{margin-bottom:1px}}
+html[data-theme="dark"] .pp-field-row{border-color:#243652}
+html[data-theme="dark"] .pp-field-key{color:#8ba0ba}
+html[data-theme="dark"] .pp-field-val{color:#c9d7e8}
+
+/* ============================================================
+   V8.4 DEFINITIVE TEXT-OVERFLOW FIX — maximum specificity
+   Targets every place text renders vertically instead of wrapping
+   ============================================================ */
+
+/* action summary row: prevent pill from being squeezed to zero width */
+details.pp-action > summary { display:flex !important; align-items:flex-start !important; gap:10px !important; flex-wrap:nowrap !important; }
+details.pp-action > summary .pp-action-main { display:flex !important; justify-content:space-between !important; align-items:center !important; flex:1 1 0 !important; min-width:0 !important; gap:8px !important; overflow:hidden !important; }
+details.pp-action > summary .pp-action-main > b { flex:1 1 0 !important; min-width:0 !important; overflow-wrap:anywhere !important; word-break:break-word !important; white-space:normal !important; font-size:13px; }
+details.pp-action > summary .pp-action-main > span,
+details.pp-action > summary .pp-action-main > span.pp-pill { flex:0 0 auto !important; min-width:54px !important; max-width:90px !important; white-space:nowrap !important; overflow:visible !important; display:inline-flex !important; align-items:center !important; }
+
+/* pp-two grid: prevent columns from collapsing below their text width */
+.pp-action-body .pp-two { display:grid !important; grid-template-columns:1fr 1fr !important; gap:14px !important; }
+.pp-action-body .pp-two > div { min-width:0 !important; overflow:hidden !important; }
+.pp-action-body .pp-two > div > p,
+.pp-action-body .pp-two > div > b { overflow-wrap:anywhere !important; word-break:break-word !important; white-space:normal !important; display:block !important; }
+
+/* callout / interpretation cards: force horizontal text flow */
+.pp-callout { display:block !important; white-space:normal !important; overflow-wrap:anywhere !important; word-break:break-word !important; width:100% !important; box-sizing:border-box !important; }
+
+/* ol/steps inside callouts and cards */
+.pp-card ol.pp-steps, .pp-card ol.pp-steps li,
+.pp-action-body ol, .pp-action-body ol li { white-space:normal !important; overflow-wrap:anywhere !important; word-break:break-word !important; }
+
+/* All text children of pp-card must wrap */
+.pp-card *, .pp-action-body * { max-width:100%; box-sizing:border-box; }
+
+/* ============================================================
+   V8.5 — DEFINITIVE pp-field-row FIX
+   The value column in grid-template-columns:120px 1fr was
+   collapsing to ~0 because the parent had no explicit width.
+   Force the entire chain to have proper widths.
+   ============================================================ */
+
+/* Make every ancestor of pp-field-row fill its container */
+.pp-json-list,
+.pp-json-item,
+.pp-json-item > div,
+.pp-field-list,
+.pp-action-body,
+.pp-action-body > *,
+.pp-card,
+.pp-card > *,
+.pp-grid-2 > .pp-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+/* The field row itself: fixed key + auto value that fills remaining space */
+.pp-field-row {
+  display: grid !important;
+  grid-template-columns: 110px minmax(0, 1fr) !important;
+  gap: 10px !important;
+  padding: 8px 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  align-items: baseline !important;
+}
+
+/* Key: never wrap, fixed width */
+.pp-field-key {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  min-width: 0 !important;
+  font-size: 10px !important;
+}
+
+/* Value: always wrap horizontally */
+.pp-field-val {
+  min-width: 0 !important;
+  width: 100% !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  white-space: normal !important;
+  font-size: 12px !important;
+  display: block !important;
+}
+
+/* pp-json-grid: also needs proper width on children */
+.pp-json-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+  gap: 8px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.pp-json-field {
+  min-width: 0 !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+/* action-head in index.html native cards */
+.action-head {
+  display: flex !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  align-items: flex-start !important;
+  width: 100% !important;
+}
+.action-head > *:first-child {
+  flex: 1 !important;
+  min-width: 0 !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+.action-head .priority-pill {
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+}
+.action-desc, .action-fix {
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+/* V8.6 — FINAL DETAILED RESULT HORIZONTAL LAYOUT FIX
+   Keep every evidence box horizontal and give nested array/object
+   content the full width available inside its box. This prevents
+   words such as "medium" or long explanations from becoming
+   one-character-per-line columns. */
+.pp-raw .pp-json-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.pp-raw .pp-json-field {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+/* Array items: fixed index + full-width content column. */
+.pp-raw .pp-json-list {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 7px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.pp-raw .pp-json-item {
+  display: grid !important;
+  grid-template-columns: 24px minmax(0, 1fr) !important;
+  align-items: start !important;
+  gap: 8px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.pp-raw .pp-json-item > div {
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.pp-raw .pp-json-item .pp-field-list,
+.pp-raw .pp-json-item .pp-stat-row,
+.pp-raw .pp-json-item .pp-json-list {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+.pp-raw .pp-value,
+.pp-raw .pp-muted,
+.pp-raw .pp-field-val,
+.pp-raw .pp-json-item,
+.pp-raw .pp-json-item * {
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  min-width: 0 !important;
+}
+
+/* Keep labels readable while allowing their values to use the full row. */
+.pp-raw .pp-json-key {
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+/* Responsive: 2 columns on medium screens, 1 on phones. */
+@media(max-width:900px){
+  .pp-raw .pp-json-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+}
+@media(max-width:600px){
+  .pp-raw .pp-json-grid{grid-template-columns:1fr !important}
+}
+
+
+/* ============================================================
+   FINAL ORGANIZED DETAILED-RESULT LAYOUT
+   - Each detailed-result box gets the full available width.
+   - Content flows horizontally inside each box.
+   - Prevents narrow 1-character-per-line text.
+   - Keeps labels and values readable.
+   ============================================================ */
+
+/* The detailed result ledger itself is a single clean vertical stack. */
+.pp-raw .pp-evidence {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Top evidence boxes: full-width cards, stacked rather than squeezed. */
+.pp-raw .pp-evidence-strip {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 10px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin-bottom: 14px !important;
+}
+
+.pp-raw .pp-evidence-item {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 18px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  padding: 14px 16px !important;
+  box-sizing: border-box !important;
+}
+
+.pp-raw .pp-evidence-key {
+  flex: 0 0 130px !important;
+  width: 130px !important;
+  min-width: 130px !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+}
+
+.pp-raw .pp-evidence-item > *:not(.pp-evidence-key) {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+/* Every JSON field becomes a full-width organized box. */
+.pp-raw .pp-json-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 10px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.pp-raw .pp-json-field {
+  display: grid !important;
+  grid-template-columns: 150px minmax(0, 1fr) !important;
+  align-items: start !important;
+  gap: 16px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  padding: 13px 15px !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+}
+
+.pp-raw .pp-json-key {
+  grid-column: 1 !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+.pp-raw .pp-json-field > div:last-child {
+  grid-column: 2 !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+
+/* Array/object content always uses the complete value column. */
+.pp-raw .pp-json-item {
+  grid-template-columns: 28px minmax(0, 1fr) !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.pp-raw .pp-json-item > div {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+.pp-raw .pp-field-list,
+.pp-raw .pp-stat-row,
+.pp-raw .pp-json-list {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Long text should wrap at words/normal boundaries, not character-by-character. */
+.pp-raw .pp-value,
+.pp-raw .pp-muted,
+.pp-raw .pp-field-val,
+.pp-raw .pp-evidence-link {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+  line-height: 1.6 !important;
+}
+
+/* Evidence charts remain horizontal and evenly spaced. */
+.pp-raw .pp-evidence-chart-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 28px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.pp-raw .pp-evidence-chart-block {
+  flex: 0 1 auto !important;
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+/* Category cards: clean horizontal rows inside the full-width result box. */
+.pp-raw .pp-cat-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.pp-raw .pp-cat-card {
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 760px) {
+  .pp-raw .pp-evidence-item {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 7px !important;
+  }
+
+  .pp-raw .pp-evidence-key {
+    flex: none !important;
+    width: auto !important;
+    min-width: 0 !important;
+  }
+
+  .pp-raw .pp-json-field {
+    grid-template-columns: 1fr !important;
+    gap: 7px !important;
+  }
+
+  .pp-raw .pp-json-key,
+  .pp-raw .pp-json-field > div:last-child {
+    grid-column: 1 !important;
+  }
+
+  .pp-raw .pp-cat-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .pp-raw .pp-evidence-chart-row {
+    flex-wrap: wrap !important;
+  }
+}
+
+/* V8.7 — DETAILED RESULT NESTED-DATA FIX
+   Never replace real nested audit values with a generic placeholder.
+   Deep objects/arrays remain readable and use the full result width. */
+.pp-raw .pp-json-pre {
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: inherit;
+  background: rgba(127,127,127,.06);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.pp-raw .pp-field-list .pp-field-row {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   V8.8 — DETAILED RESULT BOX ALIGNMENT / TYPOGRAPHY HARDENING
+   Final layout pass for the "Click to see detailed result" ledger.
+   Goals:
+   - equal-width cards and consistent rows
+   - labels/values align on the same visual grid
+   - long URLs/text wrap without clipping or character stacking
+   - nested evidence remains readable
+   - responsive without horizontal overflow
+   ============================================================ */
+.pp-raw,
+.pp-raw * {
+  box-sizing: border-box;
+}
+
+.pp-raw {
+  width: 100% !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+.pp-raw > .pp-evidence {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  padding: 0 14px 14px !important;
+  overflow: visible !important;
+}
+
+.pp-raw .pp-evidence-head {
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 14px 0 12px !important;
+}
+
+.pp-raw .pp-evidence-head p {
+  margin: 7px 0 0 !important;
+  line-height: 1.55 !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+/* Verified / source / score / URL cards: four equal columns on desktop. */
+.pp-raw .pp-evidence-strip {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  align-items: stretch !important;
+  gap: 12px !important;
+  width: 100% !important;
+  margin: 0 0 14px !important;
+}
+
+.pp-raw .pp-evidence-item {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  gap: 7px !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  min-height: 82px !important;
+  padding: 13px 14px !important;
+  border: 1px solid #e1e8f0 !important;
+  border-radius: 12px !important;
+  background: #fff !important;
+  overflow: hidden !important;
+}
+
+.pp-raw .pp-evidence-key {
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  font-size: 9.5px !important;
+  line-height: 1.25 !important;
+  font-weight: 900 !important;
+  letter-spacing: .07em !important;
+  text-transform: uppercase !important;
+  color: #718198 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+.pp-raw .pp-evidence-item > *:not(.pp-evidence-key) {
+  flex: 0 1 auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+.pp-raw .pp-evidence-item .pp-pill,
+.pp-raw .pp-evidence-item .pp-evidence-score {
+  width: auto !important;
+  max-width: 100% !important;
+}
+
+.pp-raw .pp-evidence-link {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  line-height: 1.45 !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  white-space: normal !important;
+}
+
+/* Chart/stat region: keep each visual block aligned instead of stretching oddly. */
+.pp-raw .pp-evidence-chart-row {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  align-items: center !important;
+  gap: 14px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 0 14px !important;
+}
+
+.pp-raw .pp-evidence-chart-block {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  min-height: 145px !important;
+  padding: 12px !important;
+  border: 1px solid #e3eaf2 !important;
+  border-radius: 12px !important;
+  background: #fff !important;
+  overflow: hidden !important;
+}
+
+/* Evidence cards have one consistent inner gutter and full-width children. */
+.pp-raw .pp-evidence-card {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  margin: 0 0 12px !important;
+  padding: 15px 16px !important;
+  border-radius: 13px !important;
+  overflow: visible !important;
+}
+
+.pp-raw .pp-evidence-card:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Numeric metric bars: two balanced columns rather than an uneven stream. */
+.pp-raw .pp-evidence-metrics {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px 18px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.pp-raw .pp-evidence-metrics .pp-bar-row {
+  min-width: 0 !important;
+  width: 100% !important;
+  margin: 4px 0 !important;
+}
+
+.pp-raw .pp-evidence-metrics .pp-bar-label {
+  min-width: 0 !important;
+  width: 100% !important;
+  align-items: baseline !important;
+}
+
+.pp-raw .pp-evidence-metrics .pp-bar-label span,
+.pp-raw .pp-evidence-metrics .pp-bar-label b {
+  min-width: 0 !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+/* Top-level evidence fields: two equal cards per row. */
+.pp-raw .pp-json-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  align-items: stretch !important;
+  gap: 10px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+}
+
+.pp-raw .pp-json-field {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: 7px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  min-height: 72px !important;
+  padding: 12px 13px !important;
+  border: 1px solid #e1e8f0 !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  overflow: visible !important;
+}
+
+.pp-raw .pp-json-field > .pp-json-key {
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  line-height: 1.3 !important;
+  color: #687b92 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+.pp-raw .pp-json-field > div:last-child {
+  grid-column: auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+.pp-raw .pp-json-field .pp-value,
+.pp-raw .pp-json-field .pp-muted,
+.pp-raw .pp-json-field .pp-field-val,
+.pp-raw .pp-json-field .pp-evidence-link {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  line-height: 1.55 !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+  white-space: normal !important;
+}
+
+/* Nested object rows remain compact and line up key/value columns. */
+.pp-raw .pp-field-list {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.pp-raw .pp-field-row {
+  display: grid !important;
+  grid-template-columns: minmax(105px, 145px) minmax(0, 1fr) !important;
+  align-items: start !important;
+  gap: 12px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 9px 0 !important;
+}
+
+.pp-raw .pp-field-key,
+.pp-raw .pp-field-val {
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+.pp-raw .pp-field-key {
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+  line-height: 1.35 !important;
+}
+
+.pp-raw .pp-field-val {
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+  white-space: normal !important;
+  line-height: 1.55 !important;
+}
+
+/* Lists: number column stays fixed; content gets every remaining pixel. */
+.pp-raw .pp-json-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 7px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.pp-raw .pp-json-item {
+  display: grid !important;
+  grid-template-columns: 28px minmax(0, 1fr) !important;
+  align-items: start !important;
+  gap: 9px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 9px 10px !important;
+  border: 1px solid #e4eaf1 !important;
+  border-radius: 9px !important;
+  background: #fff !important;
+  overflow: visible !important;
+}
+
+.pp-raw .pp-json-item > div {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+.pp-raw .pp-json-item * {
+  max-width: 100% !important;
+  min-width: 0 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+/* Category cards: equal heights, aligned header and stat grid. */
+.pp-raw .pp-cat-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  align-items: stretch !important;
+  gap: 10px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.pp-raw .pp-cat-card {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 150px !important;
+  padding: 14px !important;
+  overflow: hidden !important;
+}
+
+.pp-raw .pp-cat-head {
+  display: grid !important;
+  grid-template-columns: 26px minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.pp-raw .pp-cat-head b {
+  min-width: 0 !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+.pp-raw .pp-cat-head .pp-pill {
+  flex: 0 0 auto !important;
+}
+
+.pp-raw .pp-cat-stats {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 7px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin-top: auto !important;
+}
+
+.pp-raw .pp-cat-stat {
+  min-width: 0 !important;
+  text-align: center !important;
+  padding: 7px 4px !important;
+  overflow: hidden !important;
+}
+
+.pp-raw .pp-cat-stat span,
+.pp-raw .pp-cat-stat small {
+  display: block !important;
+  min-width: 0 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+/* Prevent any child component from creating a hidden horizontal scrollbar. */
+.pp-raw .pp-evidence,
+.pp-raw .pp-evidence-card,
+.pp-raw .pp-evidence-strip,
+.pp-raw .pp-evidence-chart-row,
+.pp-raw .pp-json-grid,
+.pp-raw .pp-cat-grid,
+.pp-raw .pp-json-list,
+.pp-raw .pp-field-list,
+.pp-raw .pp-field-row {
+  overflow-x: clip !important;
+}
+
+@media (max-width: 1000px) {
+  .pp-raw .pp-evidence-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .pp-raw > .pp-evidence {
+    padding: 0 10px 10px !important;
+  }
+
+  .pp-raw .pp-evidence-strip,
+  .pp-raw .pp-evidence-chart-row,
+  .pp-raw .pp-json-grid,
+  .pp-raw .pp-cat-grid,
+  .pp-raw .pp-evidence-metrics {
+    grid-template-columns: 1fr !important;
+  }
+
+  .pp-raw .pp-field-row {
+    grid-template-columns: 1fr !important;
+    gap: 4px !important;
+  }
+
+  .pp-raw .pp-cat-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .pp-raw .pp-evidence-chart-block {
+    justify-content: flex-start !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .pp-raw .pp-evidence-item,
+  .pp-raw .pp-json-field,
+  .pp-raw .pp-cat-card {
+    padding: 11px !important;
+  }
+
+  .pp-raw .pp-evidence-chart-block {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+}
+
+/* Dark mode: preserve the existing premium palette while keeping the new geometry. */
+html[data-theme="dark"] .pp-raw .pp-evidence-item,
+html[data-theme="dark"] .pp-raw .pp-evidence-chart-block,
+html[data-theme="dark"] .pp-raw .pp-json-field,
+html[data-theme="dark"] .pp-raw .pp-json-item {
+  background: #111c2d !important;
+  border-color: #293b55 !important;
+}
+
+html[data-theme="dark"] .pp-raw .pp-evidence-key,
+html[data-theme="dark"] .pp-raw .pp-json-key,
+html[data-theme="dark"] .pp-raw .pp-field-key {
+  color: #9eb0c8 !important;
+}
+
+html[data-theme="dark"] .pp-raw .pp-value,
+html[data-theme="dark"] .pp-raw .pp-field-val,
+html[data-theme="dark"] .pp-raw .pp-evidence-link {
+  color: #dbe7f6 !important;
+}

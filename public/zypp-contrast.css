@@ -1,0 +1,119 @@
+/* SEO Zypp — Contrast Layer (loaded LAST).
+   Root cause of the dark/light bugs: older sheets painted cards white (#fff) while the Aurora
+   sheet forced headings/text white (dark-only), and sidebar items used hard-coded light colors.
+   This sheet makes every surface + its text read from ONE token set per theme. */
+
+html[data-theme="dark"]{
+  --zx-surface:#141033; --zx-surface-2:#1b1545; --zx-text:#f1eeff; --zx-text-2:#b9b2d8;
+  --zx-line:rgba(167,139,250,.26); --zx-hover:rgba(139,92,246,.16);
+  --zx-chip-bg:rgba(139,92,246,.20); --zx-chip-text:#e0d6ff; --zx-shadow:0 10px 28px rgba(0,0,0,.35);
+  --zx-side-text:#cfc9ea; --zx-side-on:#fff; --zx-ic-bg:rgba(255,255,255,.07);
+}
+html[data-theme="light"]{
+  --zx-surface:#ffffff; --zx-surface-2:#faf7ff; --zx-text:#1e1438; --zx-text-2:#5d5680;
+  --zx-line:rgba(91,65,150,.20); --zx-hover:rgba(124,58,237,.07);
+  --zx-chip-bg:#f1ecff; --zx-chip-text:#4b2d9a; --zx-shadow:0 8px 22px rgba(60,40,120,.08);
+  --zx-side-text:#3d3360; --zx-side-on:#2a1470; --zx-ic-bg:rgba(124,58,237,.10);
+}
+
+/* ---------- 1. Every list row / card surface: background AND text from the same token ---------- */
+html[data-theme] body :is(.website-row,.recent-row,.keyword-row,.task-item,.workspace-card,.workspace-stat,
+  .finding,.action-item,.opportunity-item,.audit-check,.evidence-card,.empty-workspace,.gap-card,.insight-card){
+  background:var(--zx-surface)!important; color:var(--zx-text)!important;
+  border:1px solid var(--zx-line)!important; box-shadow:var(--zx-shadow)!important;
+}
+html[data-theme] body :is(.website-row,.recent-row,.keyword-row,.task-item):hover{background:var(--zx-surface-2)!important}
+html[data-theme] body :is(.website-row,.recent-row,.keyword-row,.task-item,.workspace-card,.workspace-stat,.evidence-card,.finding,.action-item)
+  :is(strong,b,h3,h4,.keyword-name,.task-title){color:var(--zx-text)!important;-webkit-text-fill-color:currentColor!important}
+html[data-theme] body :is(.website-row,.recent-row,.keyword-row,.workspace-card,.workspace-stat,.evidence-card)
+  :is(small,p,.keyword-topic,.keyword-stat,.muted-note,.small-muted,.workspace-card-head p){color:var(--zx-text-2)!important;-webkit-text-fill-color:currentColor!important}
+html[data-theme] body .keyword-stat strong{color:var(--zx-text)!important}
+html[data-theme] body .task-item span{color:var(--zx-text)!important}
+html[data-theme] body .task-item.done span{color:var(--zx-text-2)!important;text-decoration:line-through}
+html[data-theme] body .website-row>span,html[data-theme] body .recent-row>span,html[data-theme] body .workspace-stat>span,
+html[data-theme] body .website-dot{background:var(--zx-chip-bg)!important;color:var(--zx-chip-text)!important;border:1px solid var(--zx-line)!important}
+html[data-theme] body .mini-action{background:var(--zx-chip-bg)!important;color:var(--zx-chip-text)!important;border:1px solid var(--zx-line)!important;font-weight:700}
+html[data-theme] body .mini-action:hover{filter:brightness(1.12)}
+html[data-theme] body .task-pie:before{background:var(--zx-surface)!important}
+html[data-theme] body :is(#piePercent,.pie-legend,.pie-legend b,.pie-legend span){color:var(--zx-text)!important}
+html[data-theme] body :is(.intent-pill,.priority-pill,.verify-badge,.kw-level,.type-pill){
+  background:var(--zx-chip-bg)!important;color:var(--zx-chip-text)!important;border:1px solid var(--zx-line)!important}
+
+/* ---------- 2. Welcome hero: always light text on its dark gradient, in BOTH themes ---------- */
+html[data-theme] body .personal-welcome :is(h1,h1 *,h2,p,.workspace-date,#welcomeUsername,#welcomeCopy){
+  color:#fff!important;-webkit-text-fill-color:#fff!important;background:none!important;text-shadow:0 1px 14px rgba(0,0,0,.25)}
+html[data-theme] body .personal-welcome .eyebrow{color:#fde68a!important;-webkit-text-fill-color:#fde68a!important}
+
+/* ---------- 3. Sidebar (Pro shell): readable on light AND dark ---------- */
+html[data-theme] body .zs-item{color:var(--zx-side-text)!important}
+html[data-theme] body .zs-item .ic{background:var(--zx-ic-bg)!important;color:var(--zx-side-text)!important}
+html[data-theme] body .zs-item:hover{background:var(--zx-hover)!important;color:var(--zx-side-on)!important}
+html[data-theme] body .zs-item.on{color:var(--zx-side-on)!important;font-weight:700}
+html[data-theme="light"] body .zs-item.on{background:linear-gradient(90deg,rgba(124,58,237,.18),rgba(219,39,119,.08))!important;border-color:rgba(124,58,237,.38)!important}
+html[data-theme] body .zs-item.on .ic{background:var(--z-grad)!important;color:#fff!important}
+html[data-theme] body .zs-lbl{color:var(--zx-text-2)!important}
+html[data-theme="light"] body .sidebar :is(.brand-name,.brand-title,.brand strong,.brand b){color:#241552!important;-webkit-text-fill-color:currentColor!important}
+html[data-theme="dark"] body .sidebar :is(.brand-name,.brand-title,.brand strong,.brand b){color:#fff!important;-webkit-text-fill-color:currentColor!important}
+
+/* ---------- 4. Header chips / search ---------- */
+html[data-theme] body .header :is(input,.search,.global-search){color:var(--zx-text)!important}
+html[data-theme] body .header ::placeholder{color:var(--zx-text-2)!important;opacity:.85}
+html[data-theme] body .header :is(.user-chip,.user-pill,.badge,.model-pill){color:var(--zx-text)!important}
+
+/* ---------- 5. Safety net for any future white-card leftovers ---------- */
+html[data-theme="dark"] body [style*="background:#fff"],html[data-theme="dark"] body [style*="background: #fff"],
+html[data-theme="dark"] body [style*="background:white"]{background:var(--zx-surface)!important;color:var(--zx-text)!important}
+
+/* ================= NEW: Mission Control (Next Best Action + SEO Quest) ================= */
+.zx-mission{display:grid;grid-template-columns:1.25fr 1fr;gap:16px;margin:16px 0}
+@media(max-width:900px){.zx-mission{grid-template-columns:1fr}}
+.zx-card{background:var(--zx-surface);color:var(--zx-text);border:1px solid var(--zx-line);border-radius:18px;padding:18px 20px;box-shadow:var(--zx-shadow);position:relative;overflow:hidden}
+.zx-card h4{margin:0 0 4px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--zx-text-2)!important;font-weight:800}
+.zx-next{border-color:transparent;background:linear-gradient(var(--zx-surface),var(--zx-surface)) padding-box,var(--z-grad) border-box;border:1.5px solid transparent}
+.zx-next .zx-big{font-size:18px;font-weight:800;margin:6px 0 4px;color:var(--zx-text)}
+.zx-next .zx-why{font-size:13px;color:var(--zx-text-2);margin:0 0 14px;line-height:1.5}
+.zx-btn{border:0;border-radius:12px;padding:10px 16px;font-weight:700;font-size:13px;cursor:pointer;background:var(--z-grad);color:#fff;box-shadow:0 6px 18px rgba(236,72,153,.28)}
+.zx-btn.ghost{background:var(--zx-chip-bg);color:var(--zx-chip-text);box-shadow:none;border:1px solid var(--zx-line)}
+.zx-row{display:flex;gap:10px;flex-wrap:wrap}
+.zx-quest{display:flex;gap:16px;align-items:center}
+.zx-ring{--p:0;width:78px;height:78px;border-radius:50%;flex:none;display:grid;place-items:center;
+  background:conic-gradient(var(--z-a,#8b5cf6) calc(var(--p)*1%),var(--zx-chip-bg) 0)}
+.zx-ring span{width:60px;height:60px;border-radius:50%;background:var(--zx-surface);display:grid;place-items:center;font-weight:900;font-size:20px;color:var(--zx-text)}
+.zx-qmeta{min-width:0;flex:1}
+.zx-qmeta b{display:block;font-size:15px;color:var(--zx-text)}
+.zx-qmeta small{display:block;color:var(--zx-text-2)!important;margin-top:2px}
+.zx-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.zx-badge{font-size:11px;font-weight:700;padding:4px 9px;border-radius:99px;background:var(--zx-chip-bg);color:var(--zx-chip-text);border:1px solid var(--zx-line)}
+.zx-badge.lock{opacity:.5;filter:grayscale(1)}
+
+/* ================= NEW: Keyword Opportunity score + toolbar ================= */
+.zx-kwbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 12px}
+.zx-chip{border:1px solid var(--zx-line);background:var(--zx-surface);color:var(--zx-text);border-radius:99px;padding:7px 13px;font-size:12px;font-weight:700;cursor:pointer}
+.zx-chip.on{background:var(--z-grad);color:#fff;border-color:transparent}
+.zx-opp{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:11px;font-weight:800;padding:4px 10px;border-radius:99px;border:1px solid var(--zx-line);background:var(--zx-chip-bg);color:var(--zx-chip-text)}
+.zx-opp i{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block}
+.zx-opp.hot{background:rgba(244,63,94,.16);color:#e11d48}
+.zx-opp.warm{background:rgba(245,158,11,.18);color:#b45309}
+.zx-opp.cool{background:rgba(14,165,233,.15);color:#0369a1}
+html[data-theme="dark"] .zx-opp.hot{color:#fda4af}html[data-theme="dark"] .zx-opp.warm{color:#fcd34d}html[data-theme="dark"] .zx-opp.cool{color:#7dd3fc}
+
+/* ================= NEW: Theme Studio ================= */
+.zx-studio-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--zx-line);background:var(--zx-surface);color:var(--zx-text);border-radius:12px;padding:8px 12px;font-weight:800;font-size:12px;cursor:pointer}
+.zx-studio-btn.float{position:fixed;top:14px;right:16px;z-index:9400}
+.zx-pop{position:fixed;top:64px;right:16px;width:272px;z-index:9500;background:var(--zx-surface);color:var(--zx-text);border:1px solid var(--zx-line);border-radius:18px;padding:16px;box-shadow:0 24px 60px rgba(0,0,0,.4);display:none}
+.zx-pop.on{display:block}
+.zx-pop h5{margin:12px 0 8px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--zx-text-2)!important}
+.zx-pop h5:first-child{margin-top:0}
+.zx-seg{display:flex;gap:6px}.zx-seg button{flex:1}
+.zx-sw{display:flex;gap:8px;flex-wrap:wrap}
+.zx-sw button{width:30px;height:30px;border-radius:50%;border:2px solid transparent;cursor:pointer;outline:0}
+.zx-sw button.on{border-color:var(--zx-text);box-shadow:0 0 0 2px var(--zx-surface) inset}
+html.zx-compact body :is(.panel,.card,.workspace-card,.scanner){padding-top:12px!important;padding-bottom:12px!important}
+html.zx-compact body :is(.keyword-row,.task-item,.website-row,.recent-row){padding-top:8px!important;padding-bottom:8px!important}
+@media(prefers-reduced-motion:reduce){html.zx-calm *{animation:none!important;transition:none!important}}
+html.zx-calm *{animation:none!important}
+
+/* sidebar status pills (NEW / SOON / TRIAL) readable on light sidebar */
+html[data-theme="light"] body .zs-item .lk{background:rgba(8,145,178,.12)!important;color:#0e6f86!important}
+html[data-theme="light"] body .zs-item .lk.zero{background:rgba(219,39,119,.12)!important;color:#a21650!important}
+html[data-theme="light"] body .zs-item .lk.pro{background:var(--z-grad)!important;color:#fff!important}

@@ -1,0 +1,11 @@
+const fs=require('fs');
+const server=fs.readFileSync('server.js','utf8');
+const py=fs.readFileSync('seo-engine/main.py','utf8');
+const html=fs.readFileSync('public/index.html','utf8');
+for(const x of ['agent-growth-os','agent-content-optimizer','agent-keyword-map','agent-change-detect']) if(!py.includes(x)) throw new Error('missing python '+x);
+for(const x of ['/api/agent/growth-os','/api/agent/tasks','/api/agent/agency-settings','/api/agent/integrations']) if(!server.includes(x)) throw new Error('missing route '+x);
+for(const x of ['data-section="growth-os"','id="view-growth-os"','growthRun','growthTasks','agencySave']) if(!html.includes(x)) throw new Error('missing UI '+x);
+if(!html.includes('"growth-os": document.getElementById("view-growth-os")')) throw new Error('Growth OS is not registered in the navigation views map');
+if(!html.includes('"growth-os": ["Growth OS"')) throw new Error('Growth OS metadata is missing');
+if(html.indexOf('id="view-growth-os"') < html.indexOf('<main class="main">')) throw new Error('Growth OS view is outside the main application container');
+console.log('GROWTH OS STATIC INTEGRATION TEST PASSED');
